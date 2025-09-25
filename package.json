@@ -9,7 +9,7 @@
     "blockchain",
     "api"
   ],
-  "license": "Apache-2.0",
+  "license": "GPL-3.0",
   "homepage": "https://github.com/bevanamit/n8n-nodes-blockfrost",
   "author": {
     "name": "Amit Bevinakatti",

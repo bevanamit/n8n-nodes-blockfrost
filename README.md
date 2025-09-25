@@ -73,6 +73,41 @@ If you want to contribute to this node:
 4. Link to your local n8n: `npm link`
 5. In your n8n installation directory: `npm link n8n-nodes-blockfrost`
 
+## Blockfrost Account Setup
+
+To use this node, you'll need a Blockfrost account and Project ID. Follow these steps to set one up:
+
+1. **Create an Account**:
+   - Visit [blockfrost.io](https://blockfrost.io/)
+   - Click the "Sign Up" button
+   - Complete the registration form
+
+2. **Create a Project**:
+   - After signing in, navigate to the Dashboard
+   - Click "Create Project"
+   - Enter a project name (e.g., "n8n Integration")
+   - Select the network:
+     - **Cardano Mainnet**: For production use
+     - **Cardano Preprod**: For testing on the preprod testnet
+     - **Cardano Preview**: For testing on the preview testnet
+
+3. **Get Your Project ID**:
+   - After creating your project, you'll be shown your Project ID
+   - This ID will look something like `mainnet1a2b3c4d5e6f7g8h9i0j`
+   - Copy this ID to use in your n8n Blockfrost node credentials
+
+4. **Free Tier Information**:
+   - Blockfrost offers a free tier with 50,000 requests per day
+   - This is sufficient for many use cases and development
+   - Paid plans are available if you need higher limits
+
+5. **Security Note**:
+   - Treat your Project ID as a secret key
+   - Don't commit it to public repositories
+   - Consider using n8n's credential encryption feature
+
 ## License
 
-[Apache 2.0](LICENSE)
+This project is licensed under the [GNU General Public License v3.0](LICENSE) - see the [LICENSE](LICENSE) file for details.
+
+This is free software, and you are welcome to redistribute it under certain conditions.
