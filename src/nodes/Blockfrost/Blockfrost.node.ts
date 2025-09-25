@@ -7,7 +7,7 @@ import {
 } from 'n8n-workflow';
 import { BlockFrostAPI } from '@blockfrost/blockfrost-js';
 
-export class BlockfrostNode implements INodeType {
+export class Blockfrost implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'Blockfrost',
     name: 'blockfrost',
@@ -34,41 +34,11 @@ export class BlockfrostNode implements INodeType {
         type: 'options',
         noDataExpression: true,
         options: [
-          {
-            name: 'Accounts',
-            value: 'accounts',
-          },
-          {
-            name: 'Addresses',
-            value: 'addresses',
-          },
-          {
-            name: 'Assets',
-            value: 'assets',
-          },
-          {
-            name: 'Blocks',
-            value: 'blocks',
-          },
-          {
-            name: 'Epochs',
-            value: 'epochs',
-          },
-          {
-            name: 'Network',
-            value: 'network',
-          },
-          {
-            name: 'Pools',
-            value: 'pools',
-          },
-          {
-            name: 'Transactions',
-            value: 'transactions',
-          },
-          // Add more categories as implemented
+          { name: 'Health', value: 'health' },
+          { name: 'Metrics', value: 'metrics' },
+          // Add more categories as you implement them
         ],
-        default: 'accounts',
+        default: 'health',
         required: true,
       },
       {
@@ -78,70 +48,53 @@ export class BlockfrostNode implements INodeType {
         noDataExpression: true,
         displayOptions: {
           show: {
-            category: ['accounts'],
+            category: ['health'],
           },
         },
         options: [
           {
-            name: 'Get Account',
-            value: 'getAccount',
-            description: 'Get specific account information',
+            name: 'Root Endpoint',
+            value: 'root',
+            description: 'Get information pointing to the documentation (GET /)',
           },
           {
-            name: 'Get Account Rewards',
-            value: 'getAccountRewards',
-            description: 'Get account reward history',
+            name: 'Backend Health Status',
+            value: 'health',
+            description: 'Get backend health status (GET /health)',
           },
           {
-            name: 'Get Account History',
-            value: 'getAccountHistory',
-            description: 'Get account history',
-          },
-          {
-            name: 'Get Account Delegations',
-            value: 'getAccountDelegations',
-            description: 'Get account delegation history',
-          },
-          {
-            name: 'Get Account Registrations',
-            value: 'getAccountRegistrations',
-            description: 'Get account registration history',
-          },
-          {
-            name: 'Get Account Withdrawals',
-            value: 'getAccountWithdrawals',
-            description: 'Get account withdrawal history',
-          },
-          {
-            name: 'Get Account MIRs',
-            value: 'getAccountMIRs',
-            description: 'Get account MIR history',
-          },
-          {
-            name: 'Get Account Addresses',
-            value: 'getAccountAddresses',
-            description: 'Get account associated addresses',
-          },
-          {
-            name: 'Get Account Addresses Assets',
-            value: 'getAccountAddressesAssets',
-            description: 'Get assets associated with account addresses',
-          },
-          {
-            name: 'Get Account Addresses Total',
-            value: 'getAccountAddressesTotal',
-            description: 'Get detailed information about account addresses',
-          },
-          {
-            name: 'Get Account UTXOs',
-            value: 'getAccountUTXOs',
-            description: 'Get UTXOs associated with the account',
+            name: 'Current Backend Time',
+            value: 'clock',
+            description: 'Get current backend UNIX time (GET /health/clock)',
           },
         ],
-        default: 'getAccount',
-        required: true,
+        default: 'root',
       },
-      // Dynamic properties for Accounts
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['metrics'],
+          },
+        },
+        options: [
+          {
+            name: 'Usage Metrics',
+            value: 'usage',
+            description: 'History of your Blockfrost usage metrics in the past 30 days (GET /metrics)',
+          },
+          {
+            name: 'Endpoint Usage Metrics',
+            value: 'endpoints',
+            description: 'History of your Blockfrost usage metrics per endpoint in the past 30 days (GET /metrics/endpoints)',
+          },
+        ],
+        default: 'usage',
+      },
+      // Add more operations for other categories as needed
       {
         displayName: 'Stake Address',
         name: 'stakeAddress',
@@ -151,24 +104,10 @@ export class BlockfrostNode implements INodeType {
         displayOptions: {
           show: {
             category: ['accounts'],
-            operation: [
-              'getAccount',
-              'getAccountRewards',
-              'getAccountHistory',
-              'getAccountDelegations',
-              'getAccountRegistrations',
-              'getAccountWithdrawals',
-              'getAccountMIRs',
-              'getAccountAddresses',
-              'getAccountAddressesAssets',
-              'getAccountAddressesTotal',
-              'getAccountUTXOs',
-            ],
           },
         },
         description: 'Stake address in Bech32 format',
       },
-      // Add more categories and operations here
     ],
   };
 
@@ -181,58 +120,31 @@ export class BlockfrostNode implements INodeType {
 
     const category = this.getNodeParameter('category', 0) as string;
     const operation = this.getNodeParameter('operation', 0) as string;
-
     let responseData: IDataObject[] = [];
 
     try {
-      if (category === 'accounts') {
-        const stakeAddress = this.getNodeParameter('stakeAddress', 0) as string;
-
+      if (category === 'health') {
         switch (operation) {
-          case 'getAccount':
-            const account = await blockfrost.accounts(stakeAddress);
-            responseData = [account];
+          case 'root':
+            responseData = [await blockfrost.root() as IDataObject];
             break;
-          case 'getAccountRewards':
-            const rewards = await blockfrost.accountsRewards(stakeAddress);
-            responseData = rewards;
+          case 'health':
+            responseData = [await blockfrost.health() as IDataObject];
             break;
-          case 'getAccountHistory':
-            const history = await blockfrost.accountsHistory(stakeAddress);
-            responseData = history;
+          case 'clock':
+            responseData = [await blockfrost.healthClock() as IDataObject];
             break;
-          case 'getAccountDelegations':
-            const delegations = await blockfrost.accountsDelegations(stakeAddress);
-            responseData = delegations;
+          default:
+            throw new Error(`Unknown operation: ${operation}`);
+        }
+      } else if (category === 'metrics') {
+        switch (operation) {
+          case 'usage':
+            responseData = await blockfrost.metrics();
             break;
-          case 'getAccountRegistrations':
-            const registrations = await blockfrost.accountsRegistrations(stakeAddress);
-            responseData = registrations;
+          case 'endpoints':
+            responseData = await blockfrost.metricsEndpoints();
             break;
-          case 'getAccountWithdrawals':
-            const withdrawals = await blockfrost.accountsWithdrawals(stakeAddress);
-            responseData = withdrawals;
-            break;
-          case 'getAccountMIRs':
-            const mirs = await blockfrost.accountsMirs(stakeAddress);
-            responseData = mirs;
-            break;
-          case 'getAccountAddresses':
-            const addresses = await blockfrost.accountsAddresses(stakeAddress);
-            responseData = addresses;
-            break;
-          case 'getAccountAddressesAssets':
-            const addressesAssets = await blockfrost.accountsAddressesAssets(stakeAddress);
-            responseData = addressesAssets;
-            break;
-          case 'getAccountAddressesTotal':
-            const addressesTotal = await blockfrost.accountsAddressesTotal(stakeAddress);
-            responseData = [addressesTotal];
-            break;
-          case 'getAccountUTXOs':
-            // const utxos = await blockfrost.accountsUtxos(stakeAddress);
-            // responseData = utxos;
-            throw new Error('UTXOs operation not implemented yet');
           default:
             throw new Error(`Unknown operation: ${operation}`);
         }
@@ -242,7 +154,8 @@ export class BlockfrostNode implements INodeType {
     } catch (error) {
       throw new Error(`Blockfrost API error: ${(error as Error).message}`);
     }
-
     return [this.helpers.returnJsonArray(responseData)];
   }
 }
+
+export default Blockfrost;

@@ -2,14 +2,10 @@
 import { INodeType } from 'n8n-workflow';
 import { ICredentialType } from 'n8n-workflow';
 
-import { BlockfrostNode } from './nodes/Blockfrost/Blockfrost.node';
-import { BlockfrostApi } from './nodes/Blockfrost/Blockfrost.credentials';
-
-// For backwards compatibility
-const Blockfrost = BlockfrostNode;
+import BlockfrostNode from './nodes/Blockfrost/Blockfrost.node';
+import BlockfrostCredentials from './nodes/Blockfrost/Blockfrost.credentials';
 
 export {
-	BlockfrostNode,
-	BlockfrostApi,
-	Blockfrost,
+  BlockfrostNode as Blockfrost,
+  BlockfrostCredentials,
 };

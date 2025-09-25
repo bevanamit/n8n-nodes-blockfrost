@@ -25,16 +25,116 @@ class BlockfrostNode {
                 },
             ],
             properties: [
-                // Your properties here
+                {
+                    displayName: 'Category',
+                    name: 'category',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'Health',
+                            value: 'health',
+                        },
+                        // Add other categories here as we implement them
+                    ],
+                    default: 'health',
+                    description: 'API category to use',
+                },
+                {
+                    displayName: 'Operation',
+                    name: 'operation',
+                    type: 'options',
+                    displayOptions: {
+                        show: {
+                            category: [
+                                'health',
+                            ],
+                        },
+                    },
+                    options: [
+                        {
+                            name: 'Root Endpoint',
+                            value: 'root',
+                            description: 'Get information pointing to the documentation',
+                        },
+                        {
+                            name: 'Backend Health Status',
+                            value: 'health',
+                            description: 'Get backend health status',
+                        },
+                        {
+                            name: 'Current Backend Time',
+                            value: 'clock',
+                            description: 'Get current backend UNIX time',
+                        },
+                    ],
+                    default: 'root',
+                    description: 'Operation to perform',
+                }
             ]
         };
     }
 
     async execute() {
-        // Your execute code here
+        const credentials = await this.getCredentials('blockfrostApi');
+        const projectId = credentials.projectId;
+        const network = credentials.network;
+        
+        let baseUrl;
+        if (network === 'mainnet') {
+            baseUrl = 'https://cardano-mainnet.blockfrost.io/api/v0';
+        } else if (network === 'testnet') {
+            baseUrl = 'https://cardano-testnet.blockfrost.io/api/v0';
+        } else if (network === 'ipfs') {
+            baseUrl = 'https://ipfs.blockfrost.io/api/v0';
+        }
+        
+        // Initialize the API client
+        const API = new blockfrost_js_1.BlockFrostAPI({
+            projectId,
+            network,
+        });
+        
+        const items = this.getInputData();
+        const returnData = [];
+        
+        for (let i = 0; i < items.length; i++) {
+            try {
+                const category = this.getNodeParameter('category', i);
+                const operation = this.getNodeParameter('operation', i);
+                
+                let responseData;
+                
+                // Health endpoints
+                if (category === 'health') {
+                    if (operation === 'root') {
+                        // Root endpoint
+                        responseData = await API.root();
+                    } else if (operation === 'health') {
+                        // Health status endpoint
+                        responseData = await API.health();
+                    } else if (operation === 'clock') {
+                        // Clock endpoint
+                        responseData = await API.clockTime();
+                    }
+                }
+                
+                // Add additional categories and operations as they are implemented
+                
+                returnData.push({ json: responseData });
+            } catch (error) {
+                if (this.continueOnFail()) {
+                    returnData.push({ json: { error: error.message } });
+                    continue;
+                }
+                throw error;
+            }
+        }
+        
+        return this.prepareOutputData(returnData);
     }
 }
 
 exports.BlockfrostNode = BlockfrostNode;
-// Adding an alias for compatibility
-exports.Blockfrost = BlockfrostNode;
+// For compatibility, explicitly define Blockfrost class
+class Blockfrost extends BlockfrostNode {}
+exports.Blockfrost = Blockfrost;
