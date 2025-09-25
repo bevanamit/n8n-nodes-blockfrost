@@ -37,9 +37,60 @@ export class Blockfrost implements INodeType {
           { name: 'Health', value: 'health' },
           { name: 'Metrics', value: 'metrics' },
           { name: 'Accounts', value: 'accounts' },
+          { name: 'Addresses', value: 'addresses' },
         ],
         default: 'health',
         required: true,
+      },
+      // Addresses operations
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['addresses'],
+          },
+        },
+        options: [
+          { name: 'Get Address', value: 'getAddress', description: 'Obtain information about a specific address (GET /addresses/{address})' },
+          { name: 'Get Address Extended', value: 'getAddressExtended', description: 'Obtain extended information about a specific address (GET /addresses/{address}/extended)' },
+          { name: 'Get Address Total', value: 'getAddressTotal', description: 'Obtain details about an address (GET /addresses/{address}/total)' },
+          { name: 'Get Address UTXOs', value: 'getAddressUtxos', description: 'UTXOs of the address (GET /addresses/{address}/utxos)' },
+          { name: 'Get Address UTXOs of Asset', value: 'getAddressUtxosAsset', description: 'UTXOs of the address for a given asset (GET /addresses/{address}/utxos/{asset})' },
+          { name: 'Get Address Transactions', value: 'getAddressTransactions', description: 'Transactions on the address (GET /addresses/{address}/transactions)' },
+        ],
+        default: 'getAddress',
+      },
+      // Address input for addresses
+      {
+        displayName: 'Address',
+        name: 'address',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['addresses'],
+          },
+        },
+        description: 'Cardano address in Bech32 format',
+      },
+      // Asset input for getAddressUtxosAsset
+      {
+        displayName: 'Asset',
+        name: 'asset',
+        type: 'string',
+        required: false,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['addresses'],
+            operation: ['getAddressUtxosAsset'],
+          },
+        },
+        description: 'Asset unit (policy_id + hex encoded asset_name)',
       },
       // Health operations
       {
@@ -210,8 +261,6 @@ export class Blockfrost implements INodeType {
             responseData = [await blockfrost.accountsAddressesTotal(stakeAddress) as IDataObject];
             break;
           case 'getUtxos':
-            // Use generic request for UTXOs endpoint if SDK method is missing
-            // Blockfrost JS SDK does not have accountsUtxos, so use .request or ._request if available
             if (typeof (blockfrost as any).request === 'function') {
               responseData = await (blockfrost as any).request(`/accounts/${stakeAddress}/utxos`);
             } else if (typeof (blockfrost as any)._request === 'function') {
@@ -219,6 +268,40 @@ export class Blockfrost implements INodeType {
             } else {
               throw new Error('accountsUtxos method not available in Blockfrost SDK.');
             }
+            break;
+          default:
+            throw new Error(`Unknown operation: ${operation}`);
+        }
+      } else if (category === 'addresses') {
+        const address = this.getNodeParameter('address', 0) as string;
+        switch (operation) {
+          case 'getAddress':
+            responseData = [await blockfrost.addresses(address) as IDataObject];
+            break;
+          case 'getAddressExtended':
+            responseData = [await blockfrost.addressesExtended(address) as IDataObject];
+            break;
+          case 'getAddressTotal':
+            responseData = [await blockfrost.addressesTotal(address) as IDataObject];
+            break;
+          case 'getAddressUtxos':
+            responseData = await blockfrost.addressesUtxos(address);
+            break;
+          case 'getAddressUtxosAsset': {
+            const asset = this.getNodeParameter('asset', 0) as string;
+            if (!asset) throw new Error('Asset is required for this operation.');
+            // Use generic request for asset-specific UTXOs
+            if (typeof (blockfrost as any).request === 'function') {
+              responseData = await (blockfrost as any).request(`/addresses/${address}/utxos/${asset}`);
+            } else if (typeof (blockfrost as any)._request === 'function') {
+              responseData = await (blockfrost as any)._request('GET', `/addresses/${address}/utxos/${asset}`);
+            } else {
+              throw new Error('addressesUtxosAsset method not available in Blockfrost SDK.');
+            }
+            break;
+          }
+          case 'getAddressTransactions':
+            responseData = await blockfrost.addressesTransactions(address);
             break;
           default:
             throw new Error(`Unknown operation: ${operation}`);
