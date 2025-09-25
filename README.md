@@ -111,3 +111,10 @@ To use this node, you'll need a Blockfrost account and Project ID. Follow these 
 This project is licensed under the [GNU General Public License v3.0](LICENSE) - see the [LICENSE](LICENSE) file for details.
 
 This is free software, and you are welcome to redistribute it under certain conditions.
+## Support & Donations
+
+I am not Catalyst funded. Any support you provide is greatly appreciated!
+
+**Cardano (ADA) donation address:**
+
+`addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp`
