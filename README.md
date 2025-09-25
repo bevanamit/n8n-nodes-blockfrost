@@ -26,6 +26,26 @@ This is a custom n8n node for interacting with the [Cardano blockchain](https://
 4. Build the project: `npm run build`
 5. Restart n8n
 
+### Option 3: Fail-Safe Installation (if npm install does not work as expected)
+
+If running `npm install n8n-nodes-blockfrost` in your `~/.n8n/custom/` directory does not install the package correctly, try the following steps:
+
+1. Open a terminal and navigate to your n8n custom directory:
+   ```
+   cd ~/.n8n/custom
+   ```
+2. Initialize a package.json if it does not exist:
+   ```
+   npm init -y
+   ```
+3. Install the package:
+   ```
+   npm install n8n-nodes-blockfrost
+   ```
+4. Restart n8n completely (stop and start the process).
+
+This ensures the package and its dependencies are installed correctly and n8n can load the custom node.
+
 ## Prerequisites
 
 - [n8n](https://n8n.io/) (version 0.209.0 or newer)
