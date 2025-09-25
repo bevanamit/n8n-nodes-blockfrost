@@ -1,0 +1,13 @@
+// This file exports all nodes which will be included in the package
+// Export nodes directly
+const { BlockfrostNode } = require('./nodes/Blockfrost/Blockfrost.node');
+const { BlockfrostApi } = require('./nodes/Blockfrost/Blockfrost.credentials');
+
+module.exports = {
+    nodes: [
+        BlockfrostNode,
+    ],
+    credentials: [
+        BlockfrostApi,
+    ],
+};

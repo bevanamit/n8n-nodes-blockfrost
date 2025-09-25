@@ -1,0 +1,40 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Blockfrost = exports.BlockfrostNode = void 0;
+const blockfrost_js_1 = require("@blockfrost/blockfrost-js");
+
+class BlockfrostNode {
+    constructor() {
+        this.description = {
+            displayName: 'Blockfrost',
+            name: 'blockfrost',
+            icon: 'file:blockfrost.svg',
+            group: ['transform'],
+            version: 1,
+            subtitle: '={{$parameter["category"]}} - {{$parameter["operation"]}}',
+            description: 'Interact with Cardano blockchain via Blockfrost API',
+            defaults: {
+                name: 'Blockfrost',
+            },
+            inputs: ['main'],
+            outputs: ['main'],
+            credentials: [
+                {
+                    name: 'blockfrostApi',
+                    required: true,
+                },
+            ],
+            properties: [
+                // Your properties here
+            ]
+        };
+    }
+
+    async execute() {
+        // Your execute code here
+    }
+}
+
+exports.BlockfrostNode = BlockfrostNode;
+// Adding an alias for compatibility
+exports.Blockfrost = BlockfrostNode;
