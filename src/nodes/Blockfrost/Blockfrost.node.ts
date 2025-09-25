@@ -6,6 +6,7 @@ import {
   IDataObject,
 } from 'n8n-workflow';
 import { BlockFrostAPI } from '@blockfrost/blockfrost-js';
+import got from 'got';
 
 export class Blockfrost implements INodeType {
   description: INodeTypeDescription = {
@@ -28,6 +29,7 @@ export class Blockfrost implements INodeType {
       },
     ],
     properties: [
+      // Category (single definition)
       {
         displayName: 'Category',
         name: 'category',
@@ -38,11 +40,110 @@ export class Blockfrost implements INodeType {
           { name: 'Metrics', value: 'metrics' },
           { name: 'Accounts', value: 'accounts' },
           { name: 'Addresses', value: 'addresses' },
+          { name: 'Assets', value: 'assets' },
         ],
         default: 'health',
         required: true,
       },
-      // Addresses operations
+      // Assets operations
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['assets'],
+          },
+        },
+        options: [
+          { name: 'List Assets', value: 'listAssets', description: 'List of assets (GET /assets)' },
+          { name: 'Get Asset', value: 'getAsset', description: 'Information about a specific asset (GET /assets/{asset})' },
+          { name: 'Get Asset History', value: 'getAssetHistory', description: 'History of a specific asset (GET /assets/{asset}/history)' },
+          { name: 'Get Asset Transactions', value: 'getAssetTransactions', description: 'Transactions of a specific asset (GET /assets/{asset}/transactions)' },
+          { name: 'Get Asset Txs', value: 'getAssetTxs', description: 'Transaction hashes of a specific asset (GET /assets/{asset}/txs)' },
+          { name: 'Get Asset Addresses', value: 'getAssetAddresses', description: 'Addresses containing a specific asset (GET /assets/{asset}/addresses)' },
+          { name: 'List Policy Assets', value: 'listPolicyAssets', description: 'List of assets under a policy (GET /assets/policy/{policy_id})' },
+        ],
+        default: 'listAssets',
+      },
+      // Query params for /assets
+      {
+        displayName: 'Count',
+        name: 'count',
+        type: 'number',
+        default: 100,
+        required: false,
+        displayOptions: {
+          show: {
+            category: ['assets'],
+            operation: ['listAssets','getAssetHistory','getAssetTransactions','getAssetTxs','getAssetAddresses','listPolicyAssets'],
+          },
+        },
+        description: 'Max number of results per page (1-100)',
+      },
+      {
+        displayName: 'Page',
+        name: 'page',
+        type: 'number',
+        default: 1,
+        required: false,
+        displayOptions: {
+          show: {
+            category: ['assets'],
+            operation: ['listAssets','getAssetHistory','getAssetTransactions','getAssetTxs','getAssetAddresses','listPolicyAssets'],
+          },
+        },
+        description: 'Page number for results',
+      },
+      {
+        displayName: 'Order',
+        name: 'order',
+        type: 'options',
+        options: [
+          { name: 'Ascending', value: 'asc' },
+          { name: 'Descending', value: 'desc' },
+        ],
+        default: 'asc',
+        required: false,
+        displayOptions: {
+          show: {
+            category: ['assets'],
+            operation: ['listAssets','getAssetHistory','getAssetTransactions','getAssetTxs','getAssetAddresses','listPolicyAssets'],
+          },
+        },
+        description: 'Order of results',
+      },
+      // Asset input for asset-specific endpoints
+      {
+        displayName: 'Asset',
+        name: 'asset',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['assets'],
+            operation: ['getAsset','getAssetHistory','getAssetTransactions','getAssetTxs','getAssetAddresses'],
+          },
+        },
+        description: 'Asset unit (policy_id + hex encoded asset_name)',
+      },
+      // Policy ID input for /assets/policy/{policy_id}
+      {
+        displayName: 'Policy ID',
+        name: 'policyId',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['assets'],
+            operation: ['listPolicyAssets'],
+          },
+        },
+        description: 'Policy ID',
+      },
       {
         displayName: 'Operation',
         name: 'operation',
@@ -202,7 +303,76 @@ export class Blockfrost implements INodeType {
     let responseData: IDataObject[] = [];
 
     try {
-      if (category === 'health') {
+      if (category === 'assets') {
+        // Query params
+        const count = this.getNodeParameter('count', 0, 100) as number;
+        const page = this.getNodeParameter('page', 0, 1) as number;
+        const order = this.getNodeParameter('order', 0, 'asc') as string;
+        const operation = this.getNodeParameter('operation', 0) as string;
+        let url = '';
+  let params: Record<string, any> = { count, page, order };
+        let asset = '';
+        let policyId = '';
+        switch (operation) {
+          case 'listAssets':
+            url = '/assets';
+            break;
+          case 'getAsset':
+            asset = this.getNodeParameter('asset', 0) as string;
+            url = `/assets/${asset}`;
+            params = {}; // No query params for this endpoint
+            break;
+          case 'getAssetHistory':
+            asset = this.getNodeParameter('asset', 0) as string;
+            url = `/assets/${asset}/history`;
+            break;
+          case 'getAssetTransactions':
+            asset = this.getNodeParameter('asset', 0) as string;
+            url = `/assets/${asset}/transactions`;
+            break;
+          case 'getAssetTxs':
+            asset = this.getNodeParameter('asset', 0) as string;
+            url = `/assets/${asset}/txs`;
+            break;
+          case 'getAssetAddresses':
+            asset = this.getNodeParameter('asset', 0) as string;
+            url = `/assets/${asset}/addresses`;
+            break;
+          case 'listPolicyAssets':
+            policyId = this.getNodeParameter('policyId', 0) as string;
+            url = `/assets/policy/${policyId}`;
+            break;
+          default:
+            throw new Error(`Unknown operation: ${operation}`);
+        }
+        // Use direct HTTP request for all assets endpoints
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+        const reqUrl = apiBase + url;
+        const headers = {
+          project_id: credentials.projectId as string,
+        };
+        let gotOptions: any = {
+          method: 'GET',
+          headers,
+          responseType: 'json',
+        };
+        if (params && Object.keys(params).length > 0) {
+          gotOptions.searchParams = params;
+        }
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
+        }
+      } else if (category === 'health') {
         switch (operation) {
           case 'root':
             responseData = [await blockfrost.root() as IDataObject];
