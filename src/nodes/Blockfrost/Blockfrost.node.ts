@@ -36,11 +36,12 @@ export class Blockfrost implements INodeType {
         options: [
           { name: 'Health', value: 'health' },
           { name: 'Metrics', value: 'metrics' },
-          // Add more categories as you implement them
+          { name: 'Accounts', value: 'accounts' },
         ],
         default: 'health',
         required: true,
       },
+      // Health operations
       {
         displayName: 'Operation',
         name: 'operation',
@@ -70,6 +71,7 @@ export class Blockfrost implements INodeType {
         ],
         default: 'root',
       },
+      // Metrics operations
       {
         displayName: 'Operation',
         name: 'operation',
@@ -94,7 +96,33 @@ export class Blockfrost implements INodeType {
         ],
         default: 'usage',
       },
-      // Add more operations for other categories as needed
+      // Accounts operations
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['accounts'],
+          },
+        },
+        options: [
+          { name: 'Get Account', value: 'getAccount', description: 'Obtain information about a specific stake account (GET /accounts/{stake_address})' },
+          { name: 'Get Rewards', value: 'getRewards', description: 'Obtain information about the reward history of a specific account (GET /accounts/{stake_address}/rewards)' },
+          { name: 'Get History', value: 'getHistory', description: 'Obtain information about the history of a specific account (GET /accounts/{stake_address}/history)' },
+          { name: 'Get Delegations', value: 'getDelegations', description: 'Obtain information about the delegation of a specific account (GET /accounts/{stake_address}/delegations)' },
+          { name: 'Get Registrations', value: 'getRegistrations', description: 'Obtain information about the registrations and deregistrations of a specific account (GET /accounts/{stake_address}/registrations)' },
+          { name: 'Get Withdrawals', value: 'getWithdrawals', description: 'Obtain information about the withdrawals of a specific account (GET /accounts/{stake_address}/withdrawals)' },
+          { name: 'Get MIRs', value: 'getMirs', description: 'Obtain information about the MIRs of a specific account (GET /accounts/{stake_address}/mirs)' },
+          { name: 'Get Associated Addresses', value: 'getAddresses', description: 'Obtain information about the addresses of a specific account (GET /accounts/{stake_address}/addresses)' },
+          { name: 'Get Associated Assets', value: 'getAddressesAssets', description: 'Obtain information about assets associated with addresses of a specific account (GET /accounts/{stake_address}/addresses/assets)' },
+          { name: 'Get Addresses Total', value: 'getAddressesTotal', description: 'Obtain summed details about all addresses associated with a given account (GET /accounts/{stake_address}/addresses/total)' },
+          { name: 'Get UTXOs', value: 'getUtxos', description: 'UTXOs associated with the account (GET /accounts/{stake_address}/utxos)' },
+        ],
+        default: 'getAccount',
+      },
+      // Stake Address input for accounts
       {
         displayName: 'Stake Address',
         name: 'stakeAddress',
@@ -144,6 +172,53 @@ export class Blockfrost implements INodeType {
             break;
           case 'endpoints':
             responseData = await blockfrost.metricsEndpoints();
+            break;
+          default:
+            throw new Error(`Unknown operation: ${operation}`);
+        }
+      } else if (category === 'accounts') {
+        const stakeAddress = this.getNodeParameter('stakeAddress', 0) as string;
+        switch (operation) {
+          case 'getAccount':
+            responseData = [await blockfrost.accounts(stakeAddress) as IDataObject];
+            break;
+          case 'getRewards':
+            responseData = await blockfrost.accountsRewards(stakeAddress);
+            break;
+          case 'getHistory':
+            responseData = await blockfrost.accountsHistory(stakeAddress);
+            break;
+          case 'getDelegations':
+            responseData = await blockfrost.accountsDelegations(stakeAddress);
+            break;
+          case 'getRegistrations':
+            responseData = await blockfrost.accountsRegistrations(stakeAddress);
+            break;
+          case 'getWithdrawals':
+            responseData = await blockfrost.accountsWithdrawals(stakeAddress);
+            break;
+          case 'getMirs':
+            responseData = await blockfrost.accountsMirs(stakeAddress);
+            break;
+          case 'getAddresses':
+            responseData = await blockfrost.accountsAddresses(stakeAddress);
+            break;
+          case 'getAddressesAssets':
+            responseData = await blockfrost.accountsAddressesAssets(stakeAddress);
+            break;
+          case 'getAddressesTotal':
+            responseData = [await blockfrost.accountsAddressesTotal(stakeAddress) as IDataObject];
+            break;
+          case 'getUtxos':
+            // Use generic request for UTXOs endpoint if SDK method is missing
+            // Blockfrost JS SDK does not have accountsUtxos, so use .request or ._request if available
+            if (typeof (blockfrost as any).request === 'function') {
+              responseData = await (blockfrost as any).request(`/accounts/${stakeAddress}/utxos`);
+            } else if (typeof (blockfrost as any)._request === 'function') {
+              responseData = await (blockfrost as any)._request('GET', `/accounts/${stakeAddress}/utxos`);
+            } else {
+              throw new Error('accountsUtxos method not available in Blockfrost SDK.');
+            }
             break;
           default:
             throw new Error(`Unknown operation: ${operation}`);
