@@ -11,6 +11,10 @@
 
 ### Example 4
 ![Screenshot 4](assets/004.jpg)
+
+## Demo Video
+
+[![Watch the demo on YouTube](https://img.youtube.com/vi/fVEHHZigBes/0.jpg)](https://youtu.be/fVEHHZigBes)
 # n8n-nodes-blockfrost
 
 This is a custom n8n node for interacting with the [Cardano blockchain](https://cardano.org) via the [Blockfrost API](https://blockfrost.io).
