@@ -41,6 +41,7 @@ export class Blockfrost implements INodeType {
           { name: 'Accounts', value: 'accounts' },
           { name: 'Addresses', value: 'addresses' },
           { name: 'Assets', value: 'assets' },
+          { name: 'Blocks', value: 'blocks' },
         ],
         default: 'health',
         required: true,
@@ -143,6 +144,141 @@ export class Blockfrost implements INodeType {
           },
         },
         description: 'Policy ID',
+      },
+      // Blocks operations
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['blocks'],
+          },
+        },
+        options: [
+          { name: 'Latest Block', value: 'getLatestBlock', description: 'Return the latest block (GET /blocks/latest)' },
+          { name: 'Latest Block Transactions', value: 'getLatestBlockTxs', description: 'Return transactions within the latest block (GET /blocks/latest/txs)' },
+          { name: 'Latest Block Transactions CBOR', value: 'getLatestBlockTxsCbor', description: 'Return transactions within the latest block with CBOR (GET /blocks/latest/txs/cbor)' },
+          { name: 'Specific Block', value: 'getBlock', description: 'Return content of a requested block (GET /blocks/{hash_or_number})' },
+          { name: 'Next Blocks', value: 'getNextBlocks', description: 'Return list of blocks following a specific block (GET /blocks/{hash_or_number}/next)' },
+          { name: 'Previous Blocks', value: 'getPreviousBlocks', description: 'Return list of blocks preceding a specific block (GET /blocks/{hash_or_number}/previous)' },
+          { name: 'Block in Slot', value: 'getBlockInSlot', description: 'Return content of a requested block for a specific slot (GET /blocks/slot/{slot_number})' },
+          { name: 'Block in Epoch Slot', value: 'getBlockInEpochSlot', description: 'Return content of a requested block for a specific slot in an epoch (GET /blocks/epoch/{epoch_number}/slot/{slot_number})' },
+          { name: 'Block Transactions', value: 'getBlockTxs', description: 'Return transactions within the block (GET /blocks/{hash_or_number}/txs)' },
+          { name: 'Block Transactions CBOR', value: 'getBlockTxsCbor', description: 'Return transactions within the block with CBOR (GET /blocks/{hash_or_number}/txs/cbor)' },
+          { name: 'Block Addresses', value: 'getBlockAddresses', description: 'Return addresses affected in the specified block (GET /blocks/{hash_or_number}/addresses)' },
+        ],
+        default: 'getLatestBlock',
+      },
+      // Block hash or number input for block-specific endpoints
+      {
+        displayName: 'Block Hash or Number',
+        name: 'hashOrNumber',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['blocks'],
+            operation: ['getBlock', 'getNextBlocks', 'getPreviousBlocks', 'getBlockTxs', 'getBlockTxsCbor', 'getBlockAddresses'],
+          },
+        },
+        description: 'Block hash or block number',
+      },
+      // Slot number input for slot-specific endpoints
+      {
+        displayName: 'Slot Number',
+        name: 'slotNumber',
+        type: 'number',
+        required: true,
+        default: 0,
+        displayOptions: {
+          show: {
+            category: ['blocks'],
+            operation: ['getBlockInSlot'],
+          },
+        },
+        description: 'Slot number',
+      },
+      // Epoch number input for epoch slot endpoint
+      {
+        displayName: 'Epoch Number',
+        name: 'epochNumber',
+        type: 'number',
+        required: true,
+        default: 0,
+        displayOptions: {
+          show: {
+            category: ['blocks'],
+            operation: ['getBlockInEpochSlot'],
+          },
+        },
+        description: 'Epoch number',
+      },
+      // Slot number for epoch slot endpoint
+      {
+        displayName: 'Slot Number',
+        name: 'epochSlotNumber',
+        type: 'number',
+        required: true,
+        default: 0,
+        displayOptions: {
+          show: {
+            category: ['blocks'],
+            operation: ['getBlockInEpochSlot'],
+          },
+        },
+        description: 'Slot number within the epoch',
+      },
+      // Count parameter for blocks endpoints
+      {
+        displayName: 'Count',
+        name: 'count',
+        type: 'number',
+        default: 100,
+        required: false,
+        displayOptions: {
+          show: {
+            category: ['blocks'],
+            operation: ['getLatestBlockTxs', 'getLatestBlockTxsCbor', 'getNextBlocks', 'getPreviousBlocks', 'getBlockTxs', 'getBlockTxsCbor', 'getBlockAddresses'],
+          },
+        },
+        description: 'Max number of results per page (1-100)',
+      },
+      // Page parameter for blocks endpoints
+      {
+        displayName: 'Page',
+        name: 'page',
+        type: 'number',
+        default: 1,
+        required: false,
+        displayOptions: {
+          show: {
+            category: ['blocks'],
+            operation: ['getLatestBlockTxs', 'getLatestBlockTxsCbor', 'getNextBlocks', 'getPreviousBlocks', 'getBlockTxs', 'getBlockTxsCbor', 'getBlockAddresses'],
+          },
+        },
+        description: 'Page number for results',
+      },
+      // Order parameter for blocks endpoints
+      {
+        displayName: 'Order',
+        name: 'order',
+        type: 'options',
+        options: [
+          { name: 'Ascending', value: 'asc' },
+          { name: 'Descending', value: 'desc' },
+        ],
+        default: 'asc',
+        required: false,
+        displayOptions: {
+          show: {
+            category: ['blocks'],
+            operation: ['getLatestBlockTxs', 'getLatestBlockTxsCbor', 'getNextBlocks', 'getPreviousBlocks', 'getBlockTxs', 'getBlockTxsCbor', 'getBlockAddresses'],
+          },
+        },
+        description: 'Order of results',
       },
       {
         displayName: 'Operation',
@@ -475,6 +611,133 @@ export class Blockfrost implements INodeType {
             break;
           default:
             throw new Error(`Unknown operation: ${operation}`);
+        }
+      } else if (category === 'blocks') {
+        // Query params for blocks endpoints
+        const count = this.getNodeParameter('count', 0, 100) as number;
+        const page = this.getNodeParameter('page', 0, 1) as number;
+        const order = this.getNodeParameter('order', 0, 'asc') as string;
+        
+        let url = '';
+        let params: Record<string, any> = {};
+        
+        switch (operation) {
+          case 'getLatestBlock':
+            url = '/blocks/latest';
+            break;
+          case 'getLatestBlockTxs':
+            url = '/blocks/latest/txs';
+            params = { count, page, order };
+            break;
+          case 'getLatestBlockTxsCbor':
+            url = '/blocks/latest/txs/cbor';
+            params = { count, page, order };
+            break;
+          case 'getBlock': {
+            const hashOrNumber = this.getNodeParameter('hashOrNumber', 0) as string;
+            url = `/blocks/${hashOrNumber}`;
+            break;
+          }
+          case 'getNextBlocks': {
+            const hashOrNumber = this.getNodeParameter('hashOrNumber', 0) as string;
+            url = `/blocks/${hashOrNumber}/next`;
+            params = { count, page };
+            break;
+          }
+          case 'getPreviousBlocks': {
+            const hashOrNumber = this.getNodeParameter('hashOrNumber', 0) as string;
+            url = `/blocks/${hashOrNumber}/previous`;
+            params = { count, page };
+            break;
+          }
+          case 'getBlockInSlot': {
+            const slotNumber = this.getNodeParameter('slotNumber', 0) as number;
+            
+            // Validate parameters
+            if (slotNumber < 0) {
+              throw new Error('Slot number must be non-negative');
+            }
+            
+            url = `/blocks/slot/${slotNumber}`;
+            break;
+          }
+          case 'getBlockInEpochSlot': {
+            const epochNumber = this.getNodeParameter('epochNumber', 0) as number;
+            const slotNumber = this.getNodeParameter('epochSlotNumber', 0) as number;
+            
+            // Validate parameters
+            if (epochNumber < 0) {
+              throw new Error('Epoch number must be non-negative');
+            }
+            if (slotNumber < 0) {
+              throw new Error('Slot number must be non-negative');
+            }
+            
+            url = `/blocks/epoch/${epochNumber}/slot/${slotNumber}`;
+            break;
+          }
+          case 'getBlockTxs': {
+            const hashOrNumber = this.getNodeParameter('hashOrNumber', 0) as string;
+            if (!hashOrNumber || hashOrNumber.trim() === '') {
+              throw new Error('Block hash or number is required');
+            }
+            url = `/blocks/${hashOrNumber}/txs`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getBlockTxsCbor': {
+            const hashOrNumber = this.getNodeParameter('hashOrNumber', 0) as string;
+            if (!hashOrNumber || hashOrNumber.trim() === '') {
+              throw new Error('Block hash or number is required');
+            }
+            url = `/blocks/${hashOrNumber}/txs/cbor`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getBlockAddresses': {
+            const hashOrNumber = this.getNodeParameter('hashOrNumber', 0) as string;
+            if (!hashOrNumber || hashOrNumber.trim() === '') {
+              throw new Error('Block hash or number is required');
+            }
+            url = `/blocks/${hashOrNumber}/addresses`;
+            params = { count, page, order };
+            break;
+          }
+          default:
+            throw new Error(`Unknown blocks operation: ${operation}`);
+        }
+        
+        // Use direct HTTP request for all blocks endpoints
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+            
+        const reqUrl = apiBase + url;
+        const headers = {
+          project_id: credentials.projectId as string,
+        };
+        
+        let gotOptions: any = {
+          method: 'GET',
+          headers,
+          responseType: 'json',
+        };
+        
+        if (params && Object.keys(params).length > 0) {
+          gotOptions.searchParams = params;
+        }
+        
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
         }
       } else {
         throw new Error(`Category ${category} not implemented yet`);
