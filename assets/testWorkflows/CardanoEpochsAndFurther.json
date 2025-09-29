@@ -1,0 +1,1947 @@
+{
+  "name": "CardanoEpochsAndFurther",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2144,
+        -2208
+      ],
+      "id": "d869b3d4-a28e-493c-b4d1-09531e05666b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "category": "epochs",
+        "operation": "getEpochParameters",
+        "epochNumber": 499
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -2208
+      ],
+      "id": "9c70d087-d44f-43cd-815e-33aafef6b71f",
+      "name": "BlockfrostEcpochProtocolParameters",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "epochs",
+        "operation": "getEpochBlocksByPool",
+        "epochNumber": 499,
+        "poolId": "pool1mkjtce8r8yeku0mmc9vpwl0scuwuwc8lz89ckpj3k0kwgvlunv5"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -2208
+      ],
+      "id": "3b81f0c3-ee1f-4bef-aecb-3370d185d127",
+      "name": "BlockfrostEpochsBlockDistributionByPoolId",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "epochs",
+        "operation": "getEpochBlocks",
+        "epochNumber": 499
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        -2208
+      ],
+      "id": "65936f59-dc1e-49b9-8a3e-350d94930911",
+      "name": "BlockfrostEpochsBlockDistribution",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "epochs",
+        "operation": "getEpochStakesByPool",
+        "epochNumber": 499,
+        "poolId": "pool1mkjtce8r8yeku0mmc9vpwl0scuwuwc8lz89ckpj3k0kwgvlunv5"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -704,
+        -2208
+      ],
+      "id": "a362e7f3-c3e7-48c7-9340-3577d76bbb2b",
+      "name": "BlockfrostEpochsStakeDistributionByPoolID",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "epochs",
+        "operation": "getEpochStakes",
+        "epochNumber": 499
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -912,
+        -2208
+      ],
+      "id": "efbe2b0d-5fa7-4f3e-92d5-bd18b387c4c6",
+      "name": "BlockfrostEpochsStakeDistribution",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "epochs",
+        "operation": "getPreviousEpochs",
+        "epochNumber": 499
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        -2208
+      ],
+      "id": "554d52a7-5bea-4ea6-929b-d431454700c2",
+      "name": "BlockfrostEpochsPreviousEpochs",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "epochs",
+        "operation": "getNextEpochs",
+        "epochNumber": 499
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1328,
+        -2208
+      ],
+      "id": "2670a5f9-1173-4f41-aaa1-b789e3a18dbc",
+      "name": "BlockfrostEpochsNextEpochs",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "epochs",
+        "operation": "getEpoch",
+        "epochNumber": 499
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1536,
+        -2208
+      ],
+      "id": "538c7033-4b97-41a1-88e3-5590c951e5c2",
+      "name": "BlockfrostEpochsSpecificEpoch",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "epochs",
+        "operation": "getLatestEpochParameters"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1744,
+        -2208
+      ],
+      "id": "7898df22-b870-4b2f-8819-1ce208032639",
+      "name": "BlockfrostEpochsLatestEpochParameters",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "epochs"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1936,
+        -2208
+      ],
+      "id": "eca32316-ba45-4bdc-8f2e-08343b30ba96",
+      "name": "BlockfrostEpochsLatestEpoch",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -2144,
+        -1952
+      ],
+      "id": "c22a2096-672f-446c-8816-5033601142ff",
+      "name": "BlockfrostGovListDReps",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getDrep",
+        "drepId": "drep1y0j6kdexrv7kxcqd2ejkfpunwzh2qv02xyytpf4a3nh432shwau2w"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1952,
+        -1952
+      ],
+      "id": "9da3dfd3-182a-4859-a8de-1ae8968d6a35",
+      "name": "BlockfrostGovSpecificDRep",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getDrepDelegators",
+        "drepId": "drep1yfh3y46ffal6gyuf42e26urg5yyjecrgu2qyaj6zr8amk2sx3yn8g"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1760,
+        -1952
+      ],
+      "id": "e8ef4fe3-2b09-4132-94f6-455c7d1c5de7",
+      "name": "BlockfrostGovDRepDelegators",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getDrepMetadata",
+        "drepId": "drep1yfh3y46ffal6gyuf42e26urg5yyjecrgu2qyaj6zr8amk2sx3yn8g"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1568,
+        -1952
+      ],
+      "id": "dcb7ee69-7e24-41fd-8aef-ddd9ac034b47",
+      "name": "BlockfrostGovDRepMetaData",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getDrepUpdates",
+        "drepId": "drep1yfh3y46ffal6gyuf42e26urg5yyjecrgu2qyaj6zr8amk2sx3yn8g"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1376,
+        -1952
+      ],
+      "id": "90273426-5f48-46d7-af57-d1b85d0ef667",
+      "name": "BlockfrostGovDRepUpdates",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getDrepVotes",
+        "drepId": "drep1yfh3y46ffal6gyuf42e26urg5yyjecrgu2qyaj6zr8amk2sx3yn8g"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1168,
+        -1952
+      ],
+      "id": "7afce1cc-f443-4e5f-9080-e980e2feef19",
+      "name": "BlockfrostGovDRepVotes",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "listProposals"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        -1952
+      ],
+      "id": "b56b2e82-9123-4ddc-93a6-a809bd48a576",
+      "name": "BlockfrostGovListPropasals",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getProposal",
+        "txHash": "8ad3d454f3496a35cb0d07b0fd32f687f66338b7d60e787fc0a22939e5d8833e"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -768,
+        -1952
+      ],
+      "id": "60ed316d-2088-4db0-a2e0-cfd86c3148e3",
+      "name": "BlockfrostGovSpecificPropasal",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getProposalParameters",
+        "txHash": "8ad3d454f3496a35cb0d07b0fd32f687f66338b7d60e787fc0a22939e5d8833e"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -576,
+        -1952
+      ],
+      "id": "e6d064dd-c4d6-4cb5-9440-3a24e9e7bf4c",
+      "name": "BlockfrostGovPropasalParameters",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getProposalWithdrawals",
+        "txHash": "8ad3d454f3496a35cb0d07b0fd32f687f66338b7d60e787fc0a22939e5d8833e"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -1952
+      ],
+      "id": "9958e4a8-44cd-4e21-83ef-e4916071c5f9",
+      "name": "BlockfrostGovPropasalWithdrawls",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getProposalVotes",
+        "txHash": "8ad3d454f3496a35cb0d07b0fd32f687f66338b7d60e787fc0a22939e5d8833e"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -1952
+      ],
+      "id": "a576598d-dd40-4d11-b468-975fb9433512",
+      "name": "BlockfrostGovPropasalVotes",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "governance",
+        "operation": "getProposalMetadata",
+        "txHash": "8ad3d454f3496a35cb0d07b0fd32f687f66338b7d60e787fc0a22939e5d8833e"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        80,
+        -1952
+      ],
+      "id": "776f5c73-f71a-484d-937f-bf12b8e5a3c4",
+      "name": "BlockfrostGovProposalMetadata",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "ledger"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -2144,
+        -1712
+      ],
+      "id": "15ac00de-06fc-4669-8fee-b04d9367f934",
+      "name": "BlockfrostLedger",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "mempool"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -2144,
+        -1488
+      ],
+      "id": "6ff62659-e004-4794-94f3-5e528b3fa3d9",
+      "name": "BlockfrostMempool",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "mempool",
+        "operation": "getMempoolTx",
+        "txHash": "4420d31dfdc91821aa907071f23d99baf4c05197c2f95759610f17842a7be6c5"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1936,
+        -1488
+      ],
+      "id": "ca12235e-4ca8-49e2-b4d1-2bf4631e6337",
+      "name": "BlockfrostSpecificMempool",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "category": "mempool",
+        "operation": "getMempoolByAddress",
+        "address": "addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1648,
+        -1504
+      ],
+      "id": "fb3c7f1b-dab6-45c6-9a34-44b069d72b38",
+      "name": "BlockfrostMempoolByAddress",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "metadata"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -2128,
+        -1264
+      ],
+      "id": "22efbd88-2960-4476-9488-a218348be87f",
+      "name": "BlockfrostMetadataTransactionsMetadataLabels",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "metadata",
+        "operation": "getTxMetadataByLabelJson",
+        "label": "1"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1904,
+        -1264
+      ],
+      "id": "7f122c45-3a87-406b-99f2-4b3e36b26a3f",
+      "name": "BlockfrostMetadataTransactionMetadataContentJSON",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "metadata",
+        "operation": "getTxMetadataByLabelCbor",
+        "label": "1"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1648,
+        -1264
+      ],
+      "id": "27f2a92d-0ba1-4867-ab57-209f8a0a53be",
+      "name": "BlockfrostMetadataTransactionMetadataContentCBOR",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "network"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -2128,
+        -992
+      ],
+      "id": "bccafa63-a751-43a5-b553-38daef6d200c",
+      "name": "BlockfrostNetworkNetworkInformation",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "network",
+        "operation": "getNetworkEras"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1904,
+        -992
+      ],
+      "id": "8cb7acf0-08a2-4130-abd0-5490684ec308",
+      "name": "BlockfrostNetworkNetworkEras",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -2128,
+        -736
+      ],
+      "id": "49c35395-0fa1-4f85-8c07-11a627986b13",
+      "name": "BlockfrostPoolsListStakePools",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "listPoolsExtended"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1920,
+        -736
+      ],
+      "id": "b7390af2-43ff-4a21-9d14-066d2317303c",
+      "name": "BlockfrostPoolsListStakePoolsExtended",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "listRetiredPools"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1696,
+        -736
+      ],
+      "id": "b82526fc-42ed-4b54-9d10-5b73fbefe177",
+      "name": "BlockfrostPoolsListRetiredPools",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "listRetiringPools"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1488,
+        -736
+      ],
+      "id": "3a9db888-d0e1-4cb6-aed6-55e2f94c69ec",
+      "name": "BlockfrostPoolsListRetiringPools",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "getPool",
+        "poolId": "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1264,
+        -736
+      ],
+      "id": "6eaac0dd-330b-447e-955c-7306f4f27e39",
+      "name": "BlockfrostPoolsSpecificStakePool",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "getPoolHistory",
+        "poolId": "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1056,
+        -736
+      ],
+      "id": "37f28f70-6116-42af-bf8f-ec6dc52da2a0",
+      "name": "BlockfrostPoolsStakePoolHistory",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "getPoolMetadata",
+        "poolId": "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -864,
+        -736
+      ],
+      "id": "a9b948bb-133f-4564-b6b8-b0694d4d8b1e",
+      "name": "BlockfrostPoolsStakePoolMetadata",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "getPoolRelays",
+        "poolId": "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        -736
+      ],
+      "id": "610ab6bf-a631-491b-a553-7a5d6254a57c",
+      "name": "BlockfrostPoolsStakePoolRelays",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "getPoolDelegators",
+        "poolId": "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        -736
+      ],
+      "id": "439ee4e6-6460-4988-a6cc-b8928b97a175",
+      "name": "BlockfrostPoolsStakePoolDelegators",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "getPoolBlocks",
+        "poolId": "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        -736
+      ],
+      "id": "90f94544-c7b3-4a0a-a348-48cc8d7fedbd",
+      "name": "BlockfrostPoolsStakePoolBlocks",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "getPoolUpdates",
+        "poolId": "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -736
+      ],
+      "id": "cf5c2b89-c543-438d-973d-b699bd07a7c1",
+      "name": "BlockfrostPoolsStakePoolUpdates",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "pools",
+        "operation": "getPoolVotes",
+        "poolId": "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        144,
+        -736
+      ],
+      "id": "e4c6ac06-24e2-405c-abe1-4f1ad27fe5fb",
+      "name": "BlockfrostPoolsStakePoolVotes",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "category": "scripts"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -2128,
+        -448
+      ],
+      "id": "5697462b-f4af-499f-9dc2-a76af1f8d393",
+      "name": "BlockfrostScriptsListScripts",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "scripts",
+        "operation": "getScript",
+        "scriptHash": "65c197d565e88a20885e535f93755682444d3c02fd44dd70883fe89e"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1920,
+        -448
+      ],
+      "id": "ff57454a-02ea-4c11-80a4-15b5c8b06b0a",
+      "name": "BlockfrostScriptsSpecificScript",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "scripts",
+        "operation": "getScriptJson",
+        "scriptHash": "65c197d565e88a20885e535f93755682444d3c02fd44dd70883fe89e"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1712,
+        -448
+      ],
+      "id": "8c4fe73a-60b6-40f0-b825-1403e58e1240",
+      "name": "BlockfrostScriptsScriptJSON",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "scripts",
+        "operation": "getScriptCbor",
+        "scriptHash": "65c197d565e88a20885e535f93755682444d3c02fd44dd70883fe89e"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1520,
+        -448
+      ],
+      "id": "8fb22fe2-b93a-460f-8c41-346640e38fbb",
+      "name": "BlockfrostScriptsScriptCBOR",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "scripts",
+        "operation": "getScriptRedeemers",
+        "scriptHash": "65c197d565e88a20885e535f93755682444d3c02fd44dd70883fe89e"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1328,
+        -448
+      ],
+      "id": "0e581b1f-85c5-4d53-b975-81c9005650d4",
+      "name": "BlockfrostScriptsScriptRedeemers",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "scripts",
+        "operation": "getDatum",
+        "datumHash": "222"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1136,
+        -448
+      ],
+      "id": "f3142de7-9285-4d79-9637-52a2ab9c71ad",
+      "name": "BlockfrostScriptsDatumValue",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "category": "scripts",
+        "operation": "getDatumCbor",
+        "datumHash": "222"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        -448
+      ],
+      "id": "64e8650b-8c3e-4846-b7a6-af8d853c0716",
+      "name": "BlockfrostScriptsDatumCBORValue",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "category": "transactions"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -2128,
+        -208
+      ],
+      "id": "75d2ef3c-7f6f-43d4-bcb1-63f2e5908cfd",
+      "name": "BlockfrostTransactionsSpecificTransaction",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionUtxos"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1920,
+        -208
+      ],
+      "id": "111ec925-2d35-4c6f-a2bf-482b5022be47",
+      "name": "BlockfrostTransactionsTransactionUTXOs",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionStakes"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1696,
+        -208
+      ],
+      "id": "603e06ce-0adc-44d5-9b4f-696b77273d24",
+      "name": "BlockfrostTransactionsTransactionStakes",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionDelegations"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1504,
+        -208
+      ],
+      "id": "f74b41c2-02a7-45bb-808d-d1e6a6bd340b",
+      "name": "BlockfrostTransactionsTransactionDelegations",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionWithdrawals"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1296,
+        -208
+      ],
+      "id": "1a687d4c-ff21-4023-8642-07fc68b8a3b8",
+      "name": "BlockfrostTransactionsTransactionWithdrawls",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionMirs"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1072,
+        -208
+      ],
+      "id": "a23a4ad2-b309-41b9-82aa-82b3b6a0c0e4",
+      "name": "BlockfrostTransactionsTransactionMIRs",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionPoolUpdates"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -864,
+        -208
+      ],
+      "id": "56fe66c3-60b3-471d-aded-6fdeffbe7bc6",
+      "name": "BlockfrostTransactionsTransactionPoolUpdates",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionPoolRetires"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        -208
+      ],
+      "id": "3591ec94-0b06-4940-b06f-7c8dcd1fdd41",
+      "name": "BlockfrostTransactionsTransactionPoolRetires",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionMetadata"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        -208
+      ],
+      "id": "c0a55c35-178c-444b-8af5-f5b82f4a31de",
+      "name": "BlockfrostTransactionsTransactionMetadata",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionMetadataCbor"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -208
+      ],
+      "id": "85e8ca61-e690-4694-bdf5-79a8d6d67532",
+      "name": "BlockfrostTransactionsTransactionMetadataCBOR",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionRedeemers"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -208
+      ],
+      "id": "ea133b77-68a7-4b36-87f4-edf0afe951af",
+      "name": "BlockfrostTransactionsTransactionRedeemers",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionRequiredSigners"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        144,
+        -208
+      ],
+      "id": "fefab476-34d5-43e1-80fd-700fef0d592f",
+      "name": "BlockfrostTransactionsTransactionRequiredSigners",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "getTransactionCbor"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        336,
+        -208
+      ],
+      "id": "03f26c7c-82f5-4d80-ad3c-d485403dcd18",
+      "name": "BlockfrostTransactionsTransactionCBOR",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "transactions",
+        "operation": "submitTransaction"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        544,
+        -208
+      ],
+      "id": "a440e7e5-2efa-4978-9d25-473c92a2ad2c",
+      "name": "BlockfrostTransactionsSubmitTransaction",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "utilities"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -2128,
+        32
+      ],
+      "id": "b0f82516-c423-4ed0-ae6a-9736b1018969",
+      "name": "BlockfrostUtilitiesDeriveAddress",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "utilities",
+        "operation": "evaluateTransaction"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1920,
+        32
+      ],
+      "id": "260ae502-1b6f-4b2b-a63e-63a0a0fb9e5e",
+      "name": "BlockfrostUtilitiesEvaluateTransaction",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "utilities",
+        "operation": "evaluateTransactionUtxos"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -1680,
+        32
+      ],
+      "id": "bd3b496a-f8da-43f4-b6c7-4f6d83dc0b97",
+      "name": "BlockfrostUtilitiesEvaluateTransactioWithUTXOs",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEpochsLatestEpoch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEpochsBlockDistribution": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEpochsBlockDistributionByPoolId",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEpochsStakeDistributionByPoolID": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEpochsBlockDistribution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEpochsStakeDistribution": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEpochsStakeDistributionByPoolID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEpochsPreviousEpochs": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEpochsStakeDistribution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEpochsNextEpochs": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEpochsPreviousEpochs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEpochsSpecificEpoch": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEpochsNextEpochs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEpochsLatestEpochParameters": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEpochsSpecificEpoch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEpochsLatestEpoch": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEpochsLatestEpochParameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEpochsBlockDistributionByPoolId": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostEcpochProtocolParameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovListDReps": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovSpecificDRep",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovSpecificDRep": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovDRepDelegators",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovDRepDelegators": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovDRepMetaData",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovDRepMetaData": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovDRepUpdates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovDRepUpdates": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovDRepVotes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovDRepVotes": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovListPropasals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovListPropasals": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovSpecificPropasal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovSpecificPropasal": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovPropasalParameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovPropasalParameters": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovPropasalWithdrawls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovPropasalWithdrawls": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovPropasalVotes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovPropasalVotes": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovProposalMetadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostEcpochProtocolParameters": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostGovListDReps",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostLedger": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostMempool",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostGovProposalMetadata": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostLedger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostMempool": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostSpecificMempool",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostSpecificMempool": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostMempoolByAddress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostMetadataTransactionsMetadataLabels": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostMetadataTransactionMetadataContentJSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostMetadataTransactionMetadataContentJSON": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostMetadataTransactionMetadataContentCBOR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostMempoolByAddress": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostMetadataTransactionsMetadataLabels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostNetworkNetworkInformation": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostNetworkNetworkEras",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostMetadataTransactionMetadataContentCBOR": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostNetworkNetworkInformation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsListStakePools": {
+      "main": [
+        []
+      ]
+    },
+    "BlockfrostPoolsListStakePoolsExtended": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsListRetiredPools",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsListRetiredPools": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsListRetiringPools",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsSpecificStakePool": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsStakePoolHistory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsListRetiringPools": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsSpecificStakePool",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsStakePoolHistory": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsStakePoolMetadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsStakePoolMetadata": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsStakePoolRelays",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsStakePoolRelays": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsStakePoolDelegators",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsStakePoolDelegators": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsStakePoolBlocks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsStakePoolBlocks": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsStakePoolUpdates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsStakePoolUpdates": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsStakePoolVotes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostScriptsListScripts": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostScriptsSpecificScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostScriptsSpecificScript": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostScriptsScriptJSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostScriptsScriptJSON": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostScriptsScriptCBOR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostScriptsScriptCBOR": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostScriptsScriptRedeemers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostScriptsScriptRedeemers": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostScriptsDatumValue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostScriptsDatumValue": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostScriptsDatumCBORValue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPoolsStakePoolVotes": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostScriptsListScripts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostNetworkNetworkEras": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPoolsListStakePools",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "43103ec9-39a1-40c0-94d2-0980a81131e7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5d07e515c6519974338cd8c34b3e478e0381136b9aa3879f65c7ea3fc88bfd6e"
+  },
+  "id": "ZPCq1Jv6HZtvKOPZ",
+  "tags": []
+}

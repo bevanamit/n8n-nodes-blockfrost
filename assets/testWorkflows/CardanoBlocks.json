@@ -1,0 +1,379 @@
+{
+  "name": "CardanoBlocks",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        -256
+      ],
+      "id": "f3535ec6-fc9c-457f-9132-d348ab70835c",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "category": "blocks"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        -256
+      ],
+      "id": "1d115d37-0604-4115-9ea5-3e03f4031d0a",
+      "name": "BlockforstLatestBlock",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getLatestBlockTxs"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -256
+      ],
+      "id": "14a0e5ab-b141-4bfd-b567-7403d7dd87c3",
+      "name": "BlockfrostLatestBlockTransactions",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getLatestBlockTxsCbor"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -256
+      ],
+      "id": "572827cc-0c0d-4c30-bebb-958c9bea3fcd",
+      "name": "BlockfrostLatestBlockTransactionsCBOR",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getBlock",
+        "hashOrNumber": "499"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -256
+      ],
+      "id": "3c19ccf3-1989-4da2-b589-93130eb7d1a5",
+      "name": "BlockfrostSpecificBlock",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getNextBlocks",
+        "hashOrNumber": "499"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        544,
+        -256
+      ],
+      "id": "d916048c-8dfe-4e0b-a2d1-cb10c978b0a3",
+      "name": "BlockfrostNextBlocks",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getPreviousBlocks",
+        "hashOrNumber": "499"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        752,
+        -256
+      ],
+      "id": "2ca1a85a-81cf-434f-9b46-105d628456d0",
+      "name": "BlockfrostPreviousBlocks",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getBlockInSlot",
+        "slotNumber": 1
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        944,
+        -256
+      ],
+      "id": "5bdafe38-7ea6-4fd1-a7d0-7348a4c3ad97",
+      "name": "BlockfrostBlockInSlot",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getBlockInEpochSlot",
+        "epochNumber": 578
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1216,
+        -192
+      ],
+      "id": "45c286f8-1e2f-4d6b-8498-526acdce4d56",
+      "name": "BlockfrostBlockInEpochSlot",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getBlockTxs",
+        "hashOrNumber": "578"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        -144
+      ],
+      "id": "6c2b23de-f2bc-491d-8ca9-7a2f7879c905",
+      "name": "BlockfrostBlockInEpochSlot1",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getBlockTxsCbor",
+        "hashOrNumber": "500"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        -144
+      ],
+      "id": "0976451a-2c80-4c4c-b5a3-527217e4f306",
+      "name": "BlockfrostBlockTransactionsCBOR",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "blocks",
+        "operation": "getBlockAddresses",
+        "hashOrNumber": "500"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1728,
+        208
+      ],
+      "id": "22889d12-2da2-4d7a-a342-178ef4436bf8",
+      "name": "BlockfrostBlockAddresses",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "BlockforstLatestBlock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockforstLatestBlock": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostLatestBlockTransactions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostLatestBlockTransactions": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostLatestBlockTransactionsCBOR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostLatestBlockTransactionsCBOR": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostSpecificBlock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostSpecificBlock": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostNextBlocks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostNextBlocks": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostPreviousBlocks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostPreviousBlocks": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostBlockInSlot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostBlockInSlot": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostBlockInEpochSlot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostBlockInEpochSlot": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostBlockInEpochSlot1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostBlockInEpochSlot1": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostBlockTransactionsCBOR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BlockfrostBlockTransactionsCBOR": {
+      "main": [
+        [
+          {
+            "node": "BlockfrostBlockAddresses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8c735e9f-fd93-42c1-adb8-4142dc63b21c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5d07e515c6519974338cd8c34b3e478e0381136b9aa3879f65c7ea3fc88bfd6e"
+  },
+  "id": "vRCGLPK0TdZbJiK0",
+  "tags": []
+}

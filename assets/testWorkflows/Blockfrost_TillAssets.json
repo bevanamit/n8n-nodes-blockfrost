@@ -1,0 +1,949 @@
+{
+  "name": "Blockfrost_TillAssets",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7e8e1f61-1fdd-4fd5-a802-1e3fd25e649f",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {},
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        304,
+        0
+      ],
+      "id": "066bff20-2215-49fb-8b27-8041d219346a",
+      "name": "HealthRoot",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "health"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        512,
+        0
+      ],
+      "id": "611418fd-c008-4049-9f6a-6fd1dffa3905",
+      "name": "HealthBackend",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "clock"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        736,
+        0
+      ],
+      "id": "69d328b0-51e7-4d9b-99f6-4c49c66df805",
+      "name": "HealthBackendTime",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "metrics"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1296,
+        0
+      ],
+      "id": "a565c5a0-0127-4b39-a614-c9c12e6624d0",
+      "name": "MetricsUsage",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "metrics",
+        "operation": "endpoints"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        0
+      ],
+      "id": "463bf3fd-44a8-44ee-826b-2fb18071c9ee",
+      "name": "MetricsEndpointUsage",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "stakeAddress": "stake1u9k2hlsachdughqt2w3eq5ppuvdhajm09q7wsp8gype2lwc8lhg2m"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        0,
+        224
+      ],
+      "id": "1270df80-1b92-4e6d-8159-9ee66a693ef7",
+      "name": "CardanoAccountsGetAccount",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getRewards",
+        "stakeAddress": "={{ $json.stake_address }}"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        224,
+        224
+      ],
+      "id": "5574fa95-1176-477a-806a-c5f51b074d8b",
+      "name": "CardanoAccountsGetRewards",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getHistory",
+        "stakeAddress": "={{ $('CardanoAccountsGetAccount').item.json.stake_address }}"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        448,
+        224
+      ],
+      "id": "68c4bc48-7b33-4871-9892-32cdabd1ccfb",
+      "name": "CardanoAccountsGetHistory",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getDelegations",
+        "stakeAddress": "={{ $('CardanoAccountsGetAccount').item.json.stake_address }}"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        672,
+        224
+      ],
+      "id": "481ceef4-9354-4a38-8f88-5841f96fecb8",
+      "name": "CardanoAccountsGetDelegations",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getRegistrations",
+        "stakeAddress": "=stake1u9k2hlsachdughqt2w3eq5ppuvdhajm09q7wsp8gype2lwc8lhg2m"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        224
+      ],
+      "id": "ed31f805-a066-44f0-b3d0-f17e79ae3d4d",
+      "name": "CardanoAccountsGetRegistrations",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getWithdrawals",
+        "stakeAddress": "=stake1u9k2hlsachdughqt2w3eq5ppuvdhajm09q7wsp8gype2lwc8lhg2m"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        880,
+        224
+      ],
+      "id": "6bc01934-18a0-4876-a4d2-2586194ae8e5",
+      "name": "CardanoAccountsGetWithdrawls",
+      "alwaysOutputData": true,
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getMirs",
+        "stakeAddress": "=stake1u9k2hlsachdughqt2w3eq5ppuvdhajm09q7wsp8gype2lwc8lhg2m"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        224
+      ],
+      "id": "484fbbbc-2810-47c0-ba95-34b33e44d3dd",
+      "name": "CardanoAccountsGetMIR",
+      "alwaysOutputData": true,
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getAddresses",
+        "stakeAddress": "stake1u9k2hlsachdughqt2w3eq5ppuvdhajm09q7wsp8gype2lwc8lhg2m"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1456,
+        224
+      ],
+      "id": "4ca3b402-bc08-454e-bfb7-3316b0c19e95",
+      "name": "CardanoAccountsGetAssociatedAddresses",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getAddressesAssets",
+        "stakeAddress": "stake1u9k2hlsachdughqt2w3eq5ppuvdhajm09q7wsp8gype2lwc8lhg2m"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1632,
+        224
+      ],
+      "id": "9beb12ef-6b76-4cba-ab9d-d353aa69339a",
+      "name": "CardanoAccountsGetAssociatedAssets",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getAddressesTotal",
+        "stakeAddress": "stake1u9k2hlsachdughqt2w3eq5ppuvdhajm09q7wsp8gype2lwc8lhg2m"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1824,
+        224
+      ],
+      "id": "6aca9584-4fa5-405d-8264-41ec4732ecab",
+      "name": "CardanoAccountsGetAddressTotal",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "accounts",
+        "operation": "getUtxos",
+        "stakeAddress": "stake1u9k2hlsachdughqt2w3eq5ppuvdhajm09q7wsp8gype2lwc8lhg2m"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        2016,
+        224
+      ],
+      "id": "d1d72448-3676-4d59-81f6-f8343d316d14",
+      "name": "CardanoAccountsGetUTXos",
+      "alwaysOutputData": false,
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "category": "addresses",
+        "address": "addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        512
+      ],
+      "id": "770fe368-f9f5-4554-841a-7cc4f23ed2bc",
+      "name": "CardanoAddressesGetAddress",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "addresses",
+        "operation": "getAddressTotal",
+        "address": "addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        656,
+        512
+      ],
+      "id": "048a1f69-427d-4f34-918f-409f821f4225",
+      "name": "CardanoAddressesGetAddressTotal",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "addresses",
+        "operation": "getAddressExtended",
+        "address": "addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        320,
+        512
+      ],
+      "id": "199e6a31-52b6-48b6-92f6-25930a525634",
+      "name": "CardanoAddressesGetAddressExtended",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "addresses",
+        "operation": "getAddressUtxos",
+        "address": "addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        976,
+        512
+      ],
+      "id": "c9a5373f-e363-423f-a866-8631dd0d5c1f",
+      "name": "CardanoAddressesGetAddressUTXos",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "addresses",
+        "operation": "getAddressUtxosAsset",
+        "address": "addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp",
+        "asset": "3eb2769b2e600e10764e327835ebc5d5c2cc3c09a3b036830c0d370a536e6f77476c6f626533363537"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        512
+      ],
+      "id": "5d2c1348-157c-4ad8-8450-81ad5f80cdb5",
+      "name": "CardanoAddressesGetAddressUTXosOfAsset",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "category": "addresses",
+        "operation": "getAddressTransactions",
+        "address": "addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1616,
+        512
+      ],
+      "id": "d74ba988-bd76-4ad5-95e5-b4d33e412c97",
+      "name": "CardanoAddressesGetAddressTransactions",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "category": "assets"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        784
+      ],
+      "id": "2dc71527-49c9-4d14-a72e-62a2bc91ac38",
+      "name": "CardanoAssetsListAssets",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "assets",
+        "operation": "getAsset",
+        "asset": "3eb2769b2e600e10764e327835ebc5d5c2cc3c09a3b036830c0d370a536e6f77476c6f626533363537"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        320,
+        784
+      ],
+      "id": "132a4f55-f029-456d-bc6e-c69f40198b8b",
+      "name": "CardanoAssetsGetAsset",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "assets",
+        "operation": "getAssetHistory",
+        "asset": "3eb2769b2e600e10764e327835ebc5d5c2cc3c09a3b036830c0d370a536e6f77476c6f626533363537"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        576,
+        784
+      ],
+      "id": "4be38bdf-ebc9-465f-8c1a-72512a4256cf",
+      "name": "CardanoAssetsGetAssetHistory",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "assets",
+        "operation": "getAssetTransactions",
+        "asset": "3eb2769b2e600e10764e327835ebc5d5c2cc3c09a3b036830c0d370a536e6f77476c6f626533363537"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        832,
+        784
+      ],
+      "id": "53a55ad4-9ab8-4284-908f-8d015128cda3",
+      "name": "CardanoAssetsGetAssetTransactions",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "assets",
+        "operation": "getAssetTxs",
+        "asset": "3eb2769b2e600e10764e327835ebc5d5c2cc3c09a3b036830c0d370a536e6f77476c6f626533363537"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        784
+      ],
+      "id": "fc711c09-3172-4933-a9cf-ecbad986ca22",
+      "name": "CardanoAssetsGetAssetTxs",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "assets",
+        "operation": "getAssetAddresses",
+        "asset": "3eb2769b2e600e10764e327835ebc5d5c2cc3c09a3b036830c0d370a536e6f77476c6f626533363537"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        784
+      ],
+      "id": "e2bd4528-9a11-449e-b344-76aef4d36f43",
+      "name": "CardanoAssetsGetAssetAddresses",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "assets",
+        "operation": "listPolicyAssets",
+        "policyId": "3eb2769b2e600e10764e327835ebc5d5c2cc3c09a3b036830c0d370a"
+      },
+      "type": "CUSTOM.blockfrost",
+      "typeVersion": 1,
+      "position": [
+        1648,
+        784
+      ],
+      "id": "1f17c731-a73a-41a6-8361-b5c12956d0fe",
+      "name": "CardanoAssetsListPolicyAssets",
+      "credentials": {
+        "blockfrostApi": {
+          "id": "ZtqkgV3giA4vmhcF",
+          "name": "Blockfrost account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HealthRoot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HealthRoot": {
+      "main": [
+        [
+          {
+            "node": "HealthBackend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HealthBackend": {
+      "main": [
+        [
+          {
+            "node": "HealthBackendTime",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HealthBackendTime": {
+      "main": [
+        [
+          {
+            "node": "MetricsUsage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MetricsUsage": {
+      "main": [
+        [
+          {
+            "node": "MetricsEndpointUsage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MetricsEndpointUsage": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetAccount",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetAccount": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetRewards",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetRewards": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetHistory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetHistory": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetDelegations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetDelegations": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetWithdrawls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetRegistrations": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetMIR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetWithdrawls": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetRegistrations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetMIR": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetAssociatedAddresses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetAssociatedAddresses": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetAssociatedAssets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetAssociatedAssets": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetAddressTotal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetAddressTotal": {
+      "main": [
+        [
+          {
+            "node": "CardanoAccountsGetUTXos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAccountsGetUTXos": {
+      "main": [
+        [
+          {
+            "node": "CardanoAddressesGetAddress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAddressesGetAddress": {
+      "main": [
+        [
+          {
+            "node": "CardanoAddressesGetAddressExtended",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAddressesGetAddressExtended": {
+      "main": [
+        [
+          {
+            "node": "CardanoAddressesGetAddressTotal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAddressesGetAddressTotal": {
+      "main": [
+        [
+          {
+            "node": "CardanoAddressesGetAddressUTXos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAddressesGetAddressUTXos": {
+      "main": [
+        [
+          {
+            "node": "CardanoAddressesGetAddressUTXosOfAsset",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAddressesGetAddressUTXosOfAsset": {
+      "main": [
+        [
+          {
+            "node": "CardanoAddressesGetAddressTransactions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAddressesGetAddressTransactions": {
+      "main": [
+        [
+          {
+            "node": "CardanoAssetsListAssets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAssetsListAssets": {
+      "main": [
+        [
+          {
+            "node": "CardanoAssetsGetAsset",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAssetsGetAsset": {
+      "main": [
+        [
+          {
+            "node": "CardanoAssetsGetAssetHistory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAssetsGetAssetHistory": {
+      "main": [
+        [
+          {
+            "node": "CardanoAssetsGetAssetTransactions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAssetsGetAssetTransactions": {
+      "main": [
+        [
+          {
+            "node": "CardanoAssetsGetAssetTxs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAssetsGetAssetTxs": {
+      "main": [
+        [
+          {
+            "node": "CardanoAssetsGetAssetAddresses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CardanoAssetsGetAssetAddresses": {
+      "main": [
+        [
+          {
+            "node": "CardanoAssetsListPolicyAssets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "344199bf-c20a-4460-962f-36eb6f709d10",
+  "meta": {
+    "instanceId": "5d07e515c6519974338cd8c34b3e478e0381136b9aa3879f65c7ea3fc88bfd6e"
+  },
+  "id": "wSxrs6PsoQEDIDiM",
+  "tags": []
+}
