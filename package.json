@@ -1,13 +1,23 @@
 {
   "name": "n8n-nodes-blockfrost",
-  "version": "0.0.5",
-  "description": "n8n node for Blockfrost API - Interact with Cardano blockchain via no-code workflows",
+  "version": "0.1.0",
+  "description": "Comprehensive n8n node for Blockfrost API - Complete Cardano blockchain integration with 75+ endpoints covering blocks, epochs, governance, pools, transactions, and more",
   "keywords": [
     "n8n-community-node-package",
     "blockfrost",
-    "cardano",
+    "cardano", 
     "blockchain",
-    "api"
+    "api",
+    "ada",
+    "cryptocurrency",
+    "defi",
+    "smart-contracts",
+    "governance",
+    "stake-pools",
+    "transactions",
+    "epochs",
+    "mempool",
+    "metadata"
   ],
   "license": "GPL-3.0",
   "homepage": "https://github.com/bevanamit/n8n-nodes-blockfrost",

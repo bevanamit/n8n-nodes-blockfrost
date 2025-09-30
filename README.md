@@ -21,10 +21,35 @@ This is a custom n8n node for interacting with the [Cardano blockchain](https://
 
 ## Features
 
-- Query Cardano blockchain data (accounts, addresses, transactions, blocks, etc.)
+**🎯 Comprehensive Cardano Blockchain Integration**
+- **75+ endpoints** covering all major Cardano operations
+- **Complete API coverage** following Blockfrost OpenAPI v0.1.78
+
+**📊 Available Categories:**
+- **Health & Metrics** - API status and usage monitoring
+- **Accounts** - Stake account information, rewards, history, delegations
+- **Addresses** - Address details, UTXOs, transactions
+- **Assets** - Native tokens, NFTs, asset history and transactions
+- **Blocks** - Block information, transactions, addresses affected
+- **Epochs** - Epoch details, stake distribution, protocol parameters
+- **Governance** - DReps, proposals, votes, governance metadata
+- **Ledger** - Blockchain genesis information
+- **Mempool** - Current pending transactions
+- **Metadata** - Transaction metadata in JSON and CBOR formats
+- **Network** - Network statistics and era information
+- **Pools** - Stake pool data, delegators, performance, votes
+- **Scripts** - Smart contracts, Plutus scripts, redeemers, datums
+- **Transactions** - Full transaction details, UTXOs, certificates, submission
+- **Utilities** - Address derivation, transaction evaluation
+
+**🔧 Advanced Features:**
 - Work with NFTs and native tokens
-- Access IPFS data (if supported by your Blockfrost project)
-- Integrate Cardano blockchain data into your n8n workflows
+- Submit transactions to the blockchain
+- Query smart contract data and redeemers
+- Access governance information (DReps, proposals)
+- Monitor stake pool performance and delegations
+- Evaluate transaction execution costs
+- Support for all Cardano networks (mainnet, preprod, preview)
 
 ## Installation
 
