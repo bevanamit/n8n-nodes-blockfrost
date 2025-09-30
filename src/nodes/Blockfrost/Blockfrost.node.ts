@@ -42,6 +42,16 @@ export class Blockfrost implements INodeType {
           { name: 'Addresses', value: 'addresses' },
           { name: 'Assets', value: 'assets' },
           { name: 'Blocks', value: 'blocks' },
+          { name: 'Epochs', value: 'epochs' },
+          { name: 'Governance', value: 'governance' },
+          { name: 'Ledger', value: 'ledger' },
+          { name: 'Mempool', value: 'mempool' },
+          { name: 'Metadata', value: 'metadata' },
+          { name: 'Network', value: 'network' },
+          { name: 'Pools', value: 'pools' },
+          { name: 'Scripts', value: 'scripts' },
+          { name: 'Transactions', value: 'transactions' },
+          { name: 'Utilities', value: 'utilities' },
         ],
         default: 'health',
         required: true,
@@ -424,6 +434,530 @@ export class Blockfrost implements INodeType {
         },
         description: 'Stake address in Bech32 format',
       },
+
+      // ================= EPOCHS OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['epochs'],
+          },
+        },
+        options: [
+          { name: 'Latest Epoch', value: 'getLatestEpoch', description: 'Return information about the latest epoch (GET /epochs/latest)' },
+          { name: 'Latest Epoch Parameters', value: 'getLatestEpochParameters', description: 'Return protocol parameters for the latest epoch (GET /epochs/latest/parameters)' },
+          { name: 'Specific Epoch', value: 'getEpoch', description: 'Return content of the requested epoch (GET /epochs/{number})' },
+          { name: 'Next Epochs', value: 'getNextEpochs', description: 'Return list of epochs following a specific epoch (GET /epochs/{number}/next)' },
+          { name: 'Previous Epochs', value: 'getPreviousEpochs', description: 'Return list of epochs preceding a specific epoch (GET /epochs/{number}/previous)' },
+          { name: 'Stake Distribution', value: 'getEpochStakes', description: 'Return active stake distribution for the specified epoch (GET /epochs/{number}/stakes)' },
+          { name: 'Stake Distribution by Pool', value: 'getEpochStakesByPool', description: 'Return active stake distribution by stake pool (GET /epochs/{number}/stakes/{pool_id})' },
+          { name: 'Block Distribution', value: 'getEpochBlocks', description: 'Return blocks minted for the epoch (GET /epochs/{number}/blocks)' },
+          { name: 'Block Distribution by Pool', value: 'getEpochBlocksByPool', description: 'Return blocks minted by stake pool (GET /epochs/{number}/blocks/{pool_id})' },
+          { name: 'Protocol Parameters', value: 'getEpochParameters', description: 'Return protocol parameters for the epoch (GET /epochs/{number}/parameters)' },
+        ],
+        default: 'getLatestEpoch',
+      },
+      {
+        displayName: 'Epoch Number',
+        name: 'epochNumber',
+        type: 'number',
+        required: true,
+        default: 0,
+        displayOptions: {
+          show: {
+            category: ['epochs'],
+            operation: ['getEpoch', 'getNextEpochs', 'getPreviousEpochs', 'getEpochStakes', 'getEpochStakesByPool', 'getEpochBlocks', 'getEpochBlocksByPool', 'getEpochParameters'],
+          },
+        },
+        description: 'Epoch number',
+      },
+      {
+        displayName: 'Pool ID',
+        name: 'poolId',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['epochs'],
+            operation: ['getEpochStakesByPool', 'getEpochBlocksByPool'],
+          },
+        },
+        description: 'Bech32 encoded pool ID',
+      },
+
+      // ================= GOVERNANCE OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['governance'],
+          },
+        },
+        options: [
+          { name: 'List DReps', value: 'listDreps', description: 'Return information about Delegate Representatives (GET /governance/dreps)' },
+          { name: 'Specific DRep', value: 'getDrep', description: 'DRep information (GET /governance/dreps/{drep_id})' },
+          { name: 'DRep Delegators', value: 'getDrepDelegators', description: 'List of DRep delegators (GET /governance/dreps/{drep_id}/delegators)' },
+          { name: 'DRep Metadata', value: 'getDrepMetadata', description: 'DRep metadata information (GET /governance/dreps/{drep_id}/metadata)' },
+          { name: 'DRep Updates', value: 'getDrepUpdates', description: 'List of certificate updates to the DRep (GET /governance/dreps/{drep_id}/updates)' },
+          { name: 'DRep Votes', value: 'getDrepVotes', description: 'History of DRep votes (GET /governance/dreps/{drep_id}/votes)' },
+          { name: 'List Proposals', value: 'listProposals', description: 'Return information about Proposals (GET /governance/proposals)' },
+          { name: 'Specific Proposal', value: 'getProposal', description: 'Proposal information (GET /governance/proposals/{tx_hash}/{cert_index})' },
+          { name: 'Proposal Parameters', value: 'getProposalParameters', description: 'Parameters proposal details (GET /governance/proposals/{tx_hash}/{cert_index}/parameters)' },
+          { name: 'Proposal Withdrawals', value: 'getProposalWithdrawals', description: 'Parameters withdrawals details (GET /governance/proposals/{tx_hash}/{cert_index}/withdrawals)' },
+          { name: 'Proposal Votes', value: 'getProposalVotes', description: 'History of Proposal votes (GET /governance/proposals/{tx_hash}/{cert_index}/votes)' },
+          { name: 'Proposal Metadata', value: 'getProposalMetadata', description: 'Proposal metadata information (GET /governance/proposals/{tx_hash}/{cert_index}/metadata)' },
+        ],
+        default: 'listDreps',
+      },
+      {
+        displayName: 'DRep ID',
+        name: 'drepId',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['governance'],
+            operation: ['getDrep', 'getDrepDelegators', 'getDrepMetadata', 'getDrepUpdates', 'getDrepVotes'],
+          },
+        },
+        description: 'DRep ID in Bech32 format',
+      },
+      {
+        displayName: 'Transaction Hash',
+        name: 'txHash',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['governance'],
+            operation: ['getProposal', 'getProposalParameters', 'getProposalWithdrawals', 'getProposalVotes', 'getProposalMetadata'],
+          },
+        },
+        description: 'Transaction hash',
+      },
+      {
+        displayName: 'Certificate Index',
+        name: 'certIndex',
+        type: 'number',
+        required: true,
+        default: 0,
+        displayOptions: {
+          show: {
+            category: ['governance'],
+            operation: ['getProposal', 'getProposalParameters', 'getProposalWithdrawals', 'getProposalVotes', 'getProposalMetadata'],
+          },
+        },
+        description: 'Certificate index',
+      },
+
+      // ================= LEDGER OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['ledger'],
+          },
+        },
+        options: [
+          { name: 'Blockchain Genesis', value: 'getGenesis', description: 'Return information about blockchain genesis (GET /genesis)' },
+        ],
+        default: 'getGenesis',
+      },
+
+      // ================= MEMPOOL OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['mempool'],
+          },
+        },
+        options: [
+          { name: 'Mempool', value: 'getMempool', description: 'Return transactions in Blockfrost mempool (GET /mempool)' },
+          { name: 'Specific Mempool Transaction', value: 'getMempoolTx', description: 'Return content of requested transaction (GET /mempool/{hash})' },
+          { name: 'Mempool by Address', value: 'getMempoolByAddress', description: 'List mempool transactions for address (GET /mempool/addresses/{address})' },
+        ],
+        default: 'getMempool',
+      },
+      {
+        displayName: 'Transaction Hash',
+        name: 'txHash',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['mempool'],
+            operation: ['getMempoolTx'],
+          },
+        },
+        description: 'Transaction hash',
+      },
+      {
+        displayName: 'Address',
+        name: 'address',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['mempool'],
+            operation: ['getMempoolByAddress'],
+          },
+        },
+        description: 'Cardano address in Bech32 format',
+      },
+
+      // ================= METADATA OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['metadata'],
+          },
+        },
+        options: [
+          { name: 'Transaction Metadata Labels', value: 'getTxMetadataLabels', description: 'List all used transaction metadata labels (GET /metadata/txs/labels)' },
+          { name: 'Transaction Metadata Content JSON', value: 'getTxMetadataByLabelJson', description: 'Transaction metadata per label JSON (GET /metadata/txs/labels/{label})' },
+          { name: 'Transaction Metadata Content CBOR', value: 'getTxMetadataByLabelCbor', description: 'Transaction metadata per label CBOR (GET /metadata/txs/labels/{label}/cbor)' },
+        ],
+        default: 'getTxMetadataLabels',
+      },
+      {
+        displayName: 'Label',
+        name: 'label',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['metadata'],
+            operation: ['getTxMetadataByLabelJson', 'getTxMetadataByLabelCbor'],
+          },
+        },
+        description: 'Metadata label',
+      },
+
+      // ================= NETWORK OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['network'],
+          },
+        },
+        options: [
+          { name: 'Network Information', value: 'getNetworkInfo', description: 'Return detailed network information (GET /network)' },
+          { name: 'Network Eras', value: 'getNetworkEras', description: 'Query summary of blockchain eras (GET /network/eras)' },
+        ],
+        default: 'getNetworkInfo',
+      },
+
+      // ================= POOLS OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['pools'],
+          },
+        },
+        options: [
+          { name: 'List Stake Pools', value: 'listPools', description: 'List registered stake pools (GET /pools)' },
+          { name: 'List Stake Pools Extended', value: 'listPoolsExtended', description: 'List registered stake pools with additional information (GET /pools/extended)' },
+          { name: 'List Retired Pools', value: 'listRetiredPools', description: 'List already retired pools (GET /pools/retired)' },
+          { name: 'List Retiring Pools', value: 'listRetiringPools', description: 'List stake pools retiring in upcoming epochs (GET /pools/retiring)' },
+          { name: 'Specific Stake Pool', value: 'getPool', description: 'Pool information (GET /pools/{pool_id})' },
+          { name: 'Stake Pool History', value: 'getPoolHistory', description: 'History of stake pool parameters over epochs (GET /pools/{pool_id}/history)' },
+          { name: 'Stake Pool Metadata', value: 'getPoolMetadata', description: 'Stake pool registration metadata (GET /pools/{pool_id}/metadata)' },
+          { name: 'Stake Pool Relays', value: 'getPoolRelays', description: 'Relays of a stake pool (GET /pools/{pool_id}/relays)' },
+          { name: 'Stake Pool Delegators', value: 'getPoolDelegators', description: 'List current stake pool delegators (GET /pools/{pool_id}/delegators)' },
+          { name: 'Stake Pool Blocks', value: 'getPoolBlocks', description: 'List stake pool blocks (GET /pools/{pool_id}/blocks)' },
+          { name: 'Stake Pool Updates', value: 'getPoolUpdates', description: 'List certificate updates to the stake pool (GET /pools/{pool_id}/updates)' },
+          { name: 'Stake Pool Votes', value: 'getPoolVotes', description: 'History of stake pool votes (GET /pools/{pool_id}/votes)' },
+        ],
+        default: 'listPools',
+      },
+      {
+        displayName: 'Pool ID',
+        name: 'poolId',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['pools'],
+            operation: ['getPool', 'getPoolHistory', 'getPoolMetadata', 'getPoolRelays', 'getPoolDelegators', 'getPoolBlocks', 'getPoolUpdates', 'getPoolVotes'],
+          },
+        },
+        description: 'Bech32 encoded pool ID',
+      },
+
+      // ================= SCRIPTS OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['scripts'],
+          },
+        },
+        options: [
+          { name: 'List Scripts', value: 'listScripts', description: 'List of scripts (GET /scripts)' },
+          { name: 'Specific Script', value: 'getScript', description: 'Information about a specific script (GET /scripts/{script_hash})' },
+          { name: 'Script JSON', value: 'getScriptJson', description: 'JSON representation of a timelock script (GET /scripts/{script_hash}/json)' },
+          { name: 'Script CBOR', value: 'getScriptCbor', description: 'CBOR representation of a plutus script (GET /scripts/{script_hash}/cbor)' },
+          { name: 'Script Redeemers', value: 'getScriptRedeemers', description: 'List redeemers of a specific script (GET /scripts/{script_hash}/redeemers)' },
+          { name: 'Datum Value', value: 'getDatum', description: 'Query JSON value of a datum by its hash (GET /scripts/datum/{datum_hash})' },
+          { name: 'Datum CBOR Value', value: 'getDatumCbor', description: 'Query CBOR serialised datum by its hash (GET /scripts/datum/{datum_hash}/cbor)' },
+        ],
+        default: 'listScripts',
+      },
+      {
+        displayName: 'Script Hash',
+        name: 'scriptHash',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['scripts'],
+            operation: ['getScript', 'getScriptJson', 'getScriptCbor', 'getScriptRedeemers'],
+          },
+        },
+        description: 'Script hash',
+      },
+      {
+        displayName: 'Datum Hash',
+        name: 'datumHash',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['scripts'],
+            operation: ['getDatum', 'getDatumCbor'],
+          },
+        },
+        description: 'Datum hash',
+      },
+
+      // ================= TRANSACTIONS OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['transactions'],
+          },
+        },
+        options: [
+          { name: 'Specific Transaction', value: 'getTransaction', description: 'Return content of the requested transaction (GET /txs/{hash})' },
+          { name: 'Transaction UTXOs', value: 'getTransactionUtxos', description: 'Return inputs and UTXOs of the specific transaction (GET /txs/{hash}/utxos)' },
+          { name: 'Transaction Stakes', value: 'getTransactionStakes', description: 'Obtain information about stake addresses certificates (GET /txs/{hash}/stakes)' },
+          { name: 'Transaction Delegations', value: 'getTransactionDelegations', description: 'Obtain information about delegation certificates (GET /txs/{hash}/delegations)' },
+          { name: 'Transaction Withdrawals', value: 'getTransactionWithdrawals', description: 'Obtain information about withdrawals (GET /txs/{hash}/withdrawals)' },
+          { name: 'Transaction MIRs', value: 'getTransactionMirs', description: 'Obtain information about Move Instantaneous Rewards (GET /txs/{hash}/mirs)' },
+          { name: 'Transaction Pool Updates', value: 'getTransactionPoolUpdates', description: 'Obtain information about stake pool registration and update certificates (GET /txs/{hash}/pool_updates)' },
+          { name: 'Transaction Pool Retires', value: 'getTransactionPoolRetires', description: 'Obtain information about stake pool retirements (GET /txs/{hash}/pool_retires)' },
+          { name: 'Transaction Metadata', value: 'getTransactionMetadata', description: 'Obtain the transaction metadata (GET /txs/{hash}/metadata)' },
+          { name: 'Transaction Metadata CBOR', value: 'getTransactionMetadataCbor', description: 'Obtain the transaction metadata in CBOR (GET /txs/{hash}/metadata/cbor)' },
+          { name: 'Transaction Redeemers', value: 'getTransactionRedeemers', description: 'Obtain the transaction redeemers (GET /txs/{hash}/redeemers)' },
+          { name: 'Transaction Required Signers', value: 'getTransactionRequiredSigners', description: 'Obtain the extra transaction witnesses (GET /txs/{hash}/required_signers)' },
+          { name: 'Transaction CBOR', value: 'getTransactionCbor', description: 'Obtain the CBOR serialized transaction (GET /txs/{hash}/cbor)' },
+          { name: 'Submit Transaction', value: 'submitTransaction', description: 'Submit an already serialized transaction to the network (POST /tx/submit)' },
+        ],
+        default: 'getTransaction',
+      },
+      {
+        displayName: 'Transaction Hash',
+        name: 'txHash',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['transactions'],
+            operation: ['getTransaction', 'getTransactionUtxos', 'getTransactionStakes', 'getTransactionDelegations', 'getTransactionWithdrawals', 'getTransactionMirs', 'getTransactionPoolUpdates', 'getTransactionPoolRetires', 'getTransactionMetadata', 'getTransactionMetadataCbor', 'getTransactionRedeemers', 'getTransactionRequiredSigners', 'getTransactionCbor'],
+          },
+        },
+        description: 'Transaction hash',
+      },
+      {
+        displayName: 'Transaction CBOR',
+        name: 'transactionCbor',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['transactions'],
+            operation: ['submitTransaction'],
+          },
+        },
+        description: 'Serialized transaction in CBOR format',
+      },
+
+      // ================= UTILITIES OPERATIONS =================
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: {
+          show: {
+            category: ['utilities'],
+          },
+        },
+        options: [
+          { name: 'Derive Address', value: 'deriveAddress', description: 'Derive Shelley address from an xpub (GET /utils/addresses/xpub/{xpub}/{role}/{index})' },
+          { name: 'Evaluate Transaction', value: 'evaluateTransaction', description: 'Submit transaction for execution units evaluation (POST /utils/txs/evaluate)' },
+          { name: 'Evaluate Transaction with UTXOs', value: 'evaluateTransactionUtxos', description: 'Submit transaction for evaluation with additional UTXO set (POST /utils/txs/evaluate/utxos)' },
+        ],
+        default: 'deriveAddress',
+      },
+      {
+        displayName: 'XPub',
+        name: 'xpub',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['utilities'],
+            operation: ['deriveAddress'],
+          },
+        },
+        description: 'Extended public key (xpub)',
+      },
+      {
+        displayName: 'Role',
+        name: 'role',
+        type: 'number',
+        required: true,
+        default: 0,
+        displayOptions: {
+          show: {
+            category: ['utilities'],
+            operation: ['deriveAddress'],
+          },
+        },
+        description: 'Role (0 for external, 1 for internal)',
+      },
+      {
+        displayName: 'Index',
+        name: 'index',
+        type: 'number',
+        required: true,
+        default: 0,
+        displayOptions: {
+          show: {
+            category: ['utilities'],
+            operation: ['deriveAddress'],
+          },
+        },
+        description: 'Address index',
+      },
+      {
+        displayName: 'Transaction CBOR',
+        name: 'transactionCbor',
+        type: 'string',
+        required: true,
+        default: '',
+        displayOptions: {
+          show: {
+            category: ['utilities'],
+            operation: ['evaluateTransaction', 'evaluateTransactionUtxos'],
+          },
+        },
+        description: 'Serialized transaction in CBOR format',
+      },
+      {
+        displayName: 'Additional UTXOs',
+        name: 'additionalUtxos',
+        type: 'json',
+        required: false,
+        default: '[]',
+        displayOptions: {
+          show: {
+            category: ['utilities'],
+            operation: ['evaluateTransactionUtxos'],
+          },
+        },
+        description: 'Additional UTXO set as JSON array',
+      },
+
+      // ================= COMMON PARAMETERS =================
+      {
+        displayName: 'Count',
+        name: 'count',
+        type: 'number',
+        default: 100,
+        required: false,
+        displayOptions: {
+          show: {
+            category: ['epochs', 'governance', 'mempool', 'metadata', 'pools', 'scripts'],
+          },
+        },
+        description: 'Max number of results per page (1-100)',
+      },
+      {
+        displayName: 'Page',
+        name: 'page',
+        type: 'number',
+        default: 1,
+        required: false,
+        displayOptions: {
+          show: {
+            category: ['epochs', 'governance', 'mempool', 'metadata', 'pools', 'scripts'],
+          },
+        },
+        description: 'Page number for results',
+      },
+      {
+        displayName: 'Order',
+        name: 'order',
+        type: 'options',
+        options: [
+          { name: 'Ascending', value: 'asc' },
+          { name: 'Descending', value: 'desc' },
+        ],
+        default: 'asc',
+        required: false,
+        displayOptions: {
+          show: {
+            category: ['epochs', 'governance', 'mempool', 'metadata', 'pools', 'scripts'],
+          },
+        },
+        description: 'Order of results',
+      },
     ],
   };
 
@@ -739,6 +1273,699 @@ export class Blockfrost implements INodeType {
         } else {
           responseData = [{ result: body }];
         }
+      } else if (category === 'epochs') {
+        // ================= EPOCHS IMPLEMENTATION =================
+        const count = this.getNodeParameter('count', 0, 100) as number;
+        const page = this.getNodeParameter('page', 0, 1) as number;
+        const order = this.getNodeParameter('order', 0, 'asc') as string;
+        
+        let url = '';
+        let params: Record<string, any> = {};
+        
+        switch (operation) {
+          case 'getLatestEpoch':
+            url = '/epochs/latest';
+            break;
+          case 'getLatestEpochParameters':
+            url = '/epochs/latest/parameters';
+            break;
+          case 'getEpoch': {
+            const epochNumber = this.getNodeParameter('epochNumber', 0) as number;
+            url = `/epochs/${epochNumber}`;
+            break;
+          }
+          case 'getNextEpochs': {
+            const epochNumber = this.getNodeParameter('epochNumber', 0) as number;
+            url = `/epochs/${epochNumber}/next`;
+            params = { count, page };
+            break;
+          }
+          case 'getPreviousEpochs': {
+            const epochNumber = this.getNodeParameter('epochNumber', 0) as number;
+            url = `/epochs/${epochNumber}/previous`;
+            params = { count, page };
+            break;
+          }
+          case 'getEpochStakes': {
+            const epochNumber = this.getNodeParameter('epochNumber', 0) as number;
+            url = `/epochs/${epochNumber}/stakes`;
+            params = { count, page };
+            break;
+          }
+          case 'getEpochStakesByPool': {
+            const epochNumber = this.getNodeParameter('epochNumber', 0) as number;
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/epochs/${epochNumber}/stakes/${poolId}`;
+            params = { count, page };
+            break;
+          }
+          case 'getEpochBlocks': {
+            const epochNumber = this.getNodeParameter('epochNumber', 0) as number;
+            url = `/epochs/${epochNumber}/blocks`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getEpochBlocksByPool': {
+            const epochNumber = this.getNodeParameter('epochNumber', 0) as number;
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/epochs/${epochNumber}/blocks/${poolId}`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getEpochParameters': {
+            const epochNumber = this.getNodeParameter('epochNumber', 0) as number;
+            url = `/epochs/${epochNumber}/parameters`;
+            break;
+          }
+          default:
+            throw new Error(`Unknown epochs operation: ${operation}`);
+        }
+        
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+            
+        const reqUrl = apiBase + url;
+        const headers = { project_id: credentials.projectId as string };
+        let gotOptions: any = { method: 'GET', headers, responseType: 'json' };
+        
+        if (params && Object.keys(params).length > 0) {
+          gotOptions.searchParams = params;
+        }
+        
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
+        }
+        
+      } else if (category === 'governance') {
+        // ================= GOVERNANCE IMPLEMENTATION =================
+        const count = this.getNodeParameter('count', 0, 100) as number;
+        const page = this.getNodeParameter('page', 0, 1) as number;
+        const order = this.getNodeParameter('order', 0, 'asc') as string;
+        
+        let url = '';
+        let params: Record<string, any> = {};
+        
+        switch (operation) {
+          case 'listDreps':
+            url = '/governance/dreps';
+            params = { count, page, order };
+            break;
+          case 'getDrep': {
+            const drepId = this.getNodeParameter('drepId', 0) as string;
+            url = `/governance/dreps/${drepId}`;
+            break;
+          }
+          case 'getDrepDelegators': {
+            const drepId = this.getNodeParameter('drepId', 0) as string;
+            url = `/governance/dreps/${drepId}/delegators`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getDrepMetadata': {
+            const drepId = this.getNodeParameter('drepId', 0) as string;
+            url = `/governance/dreps/${drepId}/metadata`;
+            break;
+          }
+          case 'getDrepUpdates': {
+            const drepId = this.getNodeParameter('drepId', 0) as string;
+            url = `/governance/dreps/${drepId}/updates`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getDrepVotes': {
+            const drepId = this.getNodeParameter('drepId', 0) as string;
+            url = `/governance/dreps/${drepId}/votes`;
+            params = { count, page, order };
+            break;
+          }
+          case 'listProposals':
+            url = '/governance/proposals';
+            params = { count, page, order };
+            break;
+          case 'getProposal': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            const certIndex = this.getNodeParameter('certIndex', 0) as number;
+            url = `/governance/proposals/${txHash}/${certIndex}`;
+            break;
+          }
+          case 'getProposalParameters': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            const certIndex = this.getNodeParameter('certIndex', 0) as number;
+            url = `/governance/proposals/${txHash}/${certIndex}/parameters`;
+            break;
+          }
+          case 'getProposalWithdrawals': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            const certIndex = this.getNodeParameter('certIndex', 0) as number;
+            url = `/governance/proposals/${txHash}/${certIndex}/withdrawals`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getProposalVotes': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            const certIndex = this.getNodeParameter('certIndex', 0) as number;
+            url = `/governance/proposals/${txHash}/${certIndex}/votes`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getProposalMetadata': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            const certIndex = this.getNodeParameter('certIndex', 0) as number;
+            url = `/governance/proposals/${txHash}/${certIndex}/metadata`;
+            break;
+          }
+          default:
+            throw new Error(`Unknown governance operation: ${operation}`);
+        }
+        
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+            
+        const reqUrl = apiBase + url;
+        const headers = { project_id: credentials.projectId as string };
+        let gotOptions: any = { method: 'GET', headers, responseType: 'json' };
+        
+        if (params && Object.keys(params).length > 0) {
+          gotOptions.searchParams = params;
+        }
+        
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
+        }
+        
+      } else if (category === 'ledger') {
+        // ================= LEDGER IMPLEMENTATION =================
+        switch (operation) {
+          case 'getGenesis':
+            responseData = [await blockfrost.genesis() as IDataObject];
+            break;
+          default:
+            throw new Error(`Unknown ledger operation: ${operation}`);
+        }
+        
+      } else if (category === 'mempool') {
+        // ================= MEMPOOL IMPLEMENTATION =================
+        const count = this.getNodeParameter('count', 0, 100) as number;
+        const page = this.getNodeParameter('page', 0, 1) as number;
+        const order = this.getNodeParameter('order', 0, 'asc') as string;
+        
+        let url = '';
+        let params: Record<string, any> = {};
+        
+        switch (operation) {
+          case 'getMempool':
+            url = '/mempool';
+            params = { count, page, order };
+            break;
+          case 'getMempoolTx': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/mempool/${txHash}`;
+            break;
+          }
+          case 'getMempoolByAddress': {
+            const address = this.getNodeParameter('address', 0) as string;
+            url = `/mempool/addresses/${address}`;
+            params = { count, page, order };
+            break;
+          }
+          default:
+            throw new Error(`Unknown mempool operation: ${operation}`);
+        }
+        
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+            
+        const reqUrl = apiBase + url;
+        const headers = { project_id: credentials.projectId as string };
+        let gotOptions: any = { method: 'GET', headers, responseType: 'json' };
+        
+        if (params && Object.keys(params).length > 0) {
+          gotOptions.searchParams = params;
+        }
+        
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
+        }
+        
+      } else if (category === 'metadata') {
+        // ================= METADATA IMPLEMENTATION =================
+        const count = this.getNodeParameter('count', 0, 100) as number;
+        const page = this.getNodeParameter('page', 0, 1) as number;
+        const order = this.getNodeParameter('order', 0, 'asc') as string;
+        
+        let url = '';
+        let params: Record<string, any> = {};
+        
+        switch (operation) {
+          case 'getTxMetadataLabels':
+            url = '/metadata/txs/labels';
+            params = { count, page, order };
+            break;
+          case 'getTxMetadataByLabelJson': {
+            const label = this.getNodeParameter('label', 0) as string;
+            url = `/metadata/txs/labels/${label}`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getTxMetadataByLabelCbor': {
+            const label = this.getNodeParameter('label', 0) as string;
+            url = `/metadata/txs/labels/${label}/cbor`;
+            params = { count, page, order };
+            break;
+          }
+          default:
+            throw new Error(`Unknown metadata operation: ${operation}`);
+        }
+        
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+            
+        const reqUrl = apiBase + url;
+        const headers = { project_id: credentials.projectId as string };
+        let gotOptions: any = { method: 'GET', headers, responseType: 'json' };
+        
+        if (params && Object.keys(params).length > 0) {
+          gotOptions.searchParams = params;
+        }
+        
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
+        }
+        
+      } else if (category === 'network') {
+        // ================= NETWORK IMPLEMENTATION =================
+        switch (operation) {
+          case 'getNetworkInfo':
+            responseData = [await blockfrost.network() as IDataObject];
+            break;
+          case 'getNetworkEras':
+            responseData = await blockfrost.networkEras();
+            break;
+          default:
+            throw new Error(`Unknown network operation: ${operation}`);
+        }
+        
+      } else if (category === 'pools') {
+        // ================= POOLS IMPLEMENTATION =================
+        const count = this.getNodeParameter('count', 0, 100) as number;
+        const page = this.getNodeParameter('page', 0, 1) as number;
+        const order = this.getNodeParameter('order', 0, 'asc') as string;
+        
+        let url = '';
+        let params: Record<string, any> = {};
+        
+        switch (operation) {
+          case 'listPools':
+            url = '/pools';
+            params = { count, page, order };
+            break;
+          case 'listPoolsExtended':
+            url = '/pools/extended';
+            params = { count, page, order };
+            break;
+          case 'listRetiredPools':
+            url = '/pools/retired';
+            params = { count, page, order };
+            break;
+          case 'listRetiringPools':
+            url = '/pools/retiring';
+            params = { count, page, order };
+            break;
+          case 'getPool': {
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/pools/${poolId}`;
+            break;
+          }
+          case 'getPoolHistory': {
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/pools/${poolId}/history`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getPoolMetadata': {
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/pools/${poolId}/metadata`;
+            break;
+          }
+          case 'getPoolRelays': {
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/pools/${poolId}/relays`;
+            break;
+          }
+          case 'getPoolDelegators': {
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/pools/${poolId}/delegators`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getPoolBlocks': {
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/pools/${poolId}/blocks`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getPoolUpdates': {
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/pools/${poolId}/updates`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getPoolVotes': {
+            const poolId = this.getNodeParameter('poolId', 0) as string;
+            url = `/pools/${poolId}/votes`;
+            params = { count, page, order };
+            break;
+          }
+          default:
+            throw new Error(`Unknown pools operation: ${operation}`);
+        }
+        
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+            
+        const reqUrl = apiBase + url;
+        const headers = { project_id: credentials.projectId as string };
+        let gotOptions: any = { method: 'GET', headers, responseType: 'json' };
+        
+        if (params && Object.keys(params).length > 0) {
+          gotOptions.searchParams = params;
+        }
+        
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
+        }
+        
+      } else if (category === 'scripts') {
+        // ================= SCRIPTS IMPLEMENTATION =================
+        const count = this.getNodeParameter('count', 0, 100) as number;
+        const page = this.getNodeParameter('page', 0, 1) as number;
+        const order = this.getNodeParameter('order', 0, 'asc') as string;
+        
+        let url = '';
+        let params: Record<string, any> = {};
+        
+        switch (operation) {
+          case 'listScripts':
+            url = '/scripts';
+            params = { count, page, order };
+            break;
+          case 'getScript': {
+            const scriptHash = this.getNodeParameter('scriptHash', 0) as string;
+            url = `/scripts/${scriptHash}`;
+            break;
+          }
+          case 'getScriptJson': {
+            const scriptHash = this.getNodeParameter('scriptHash', 0) as string;
+            url = `/scripts/${scriptHash}/json`;
+            break;
+          }
+          case 'getScriptCbor': {
+            const scriptHash = this.getNodeParameter('scriptHash', 0) as string;
+            url = `/scripts/${scriptHash}/cbor`;
+            break;
+          }
+          case 'getScriptRedeemers': {
+            const scriptHash = this.getNodeParameter('scriptHash', 0) as string;
+            url = `/scripts/${scriptHash}/redeemers`;
+            params = { count, page, order };
+            break;
+          }
+          case 'getDatum': {
+            const datumHash = this.getNodeParameter('datumHash', 0) as string;
+            url = `/scripts/datum/${datumHash}`;
+            break;
+          }
+          case 'getDatumCbor': {
+            const datumHash = this.getNodeParameter('datumHash', 0) as string;
+            url = `/scripts/datum/${datumHash}/cbor`;
+            break;
+          }
+          default:
+            throw new Error(`Unknown scripts operation: ${operation}`);
+        }
+        
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+            
+        const reqUrl = apiBase + url;
+        const headers = { project_id: credentials.projectId as string };
+        let gotOptions: any = { method: 'GET', headers, responseType: 'json' };
+        
+        if (params && Object.keys(params).length > 0) {
+          gotOptions.searchParams = params;
+        }
+        
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
+        }
+        
+      } else if (category === 'transactions') {
+        // ================= TRANSACTIONS IMPLEMENTATION =================
+        let url = '';
+        let method = 'GET';
+        let requestBody: any = null;
+        
+        switch (operation) {
+          case 'getTransaction': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}`;
+            break;
+          }
+          case 'getTransactionUtxos': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/utxos`;
+            break;
+          }
+          case 'getTransactionStakes': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/stakes`;
+            break;
+          }
+          case 'getTransactionDelegations': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/delegations`;
+            break;
+          }
+          case 'getTransactionWithdrawals': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/withdrawals`;
+            break;
+          }
+          case 'getTransactionMirs': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/mirs`;
+            break;
+          }
+          case 'getTransactionPoolUpdates': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/pool_updates`;
+            break;
+          }
+          case 'getTransactionPoolRetires': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/pool_retires`;
+            break;
+          }
+          case 'getTransactionMetadata': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/metadata`;
+            break;
+          }
+          case 'getTransactionMetadataCbor': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/metadata/cbor`;
+            break;
+          }
+          case 'getTransactionRedeemers': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/redeemers`;
+            break;
+          }
+          case 'getTransactionRequiredSigners': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/required_signers`;
+            break;
+          }
+          case 'getTransactionCbor': {
+            const txHash = this.getNodeParameter('txHash', 0) as string;
+            url = `/txs/${txHash}/cbor`;
+            break;
+          }
+          case 'submitTransaction': {
+            const transactionCbor = this.getNodeParameter('transactionCbor', 0) as string;
+            url = '/tx/submit';
+            method = 'POST';
+            requestBody = transactionCbor;
+            break;
+          }
+          default:
+            throw new Error(`Unknown transactions operation: ${operation}`);
+        }
+        
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+            
+        const reqUrl = apiBase + url;
+        const headers: any = { 
+          project_id: credentials.projectId as string,
+        };
+        
+        if (method === 'POST') {
+          headers['Content-Type'] = 'application/cbor';
+        }
+        
+        let gotOptions: any = { method, headers, responseType: 'json' };
+        
+        if (requestBody) {
+          gotOptions.body = requestBody;
+        }
+        
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
+        }
+        
+      } else if (category === 'utilities') {
+        // ================= UTILITIES IMPLEMENTATION =================
+        let url = '';
+        let method = 'GET';
+        let requestBody: any = null;
+        
+        switch (operation) {
+          case 'deriveAddress': {
+            const xpub = this.getNodeParameter('xpub', 0) as string;
+            const role = this.getNodeParameter('role', 0) as number;
+            const index = this.getNodeParameter('index', 0) as number;
+            url = `/utils/addresses/xpub/${xpub}/${role}/${index}`;
+            break;
+          }
+          case 'evaluateTransaction': {
+            const transactionCbor = this.getNodeParameter('transactionCbor', 0) as string;
+            url = '/utils/txs/evaluate';
+            method = 'POST';
+            requestBody = transactionCbor;
+            break;
+          }
+          case 'evaluateTransactionUtxos': {
+            const transactionCbor = this.getNodeParameter('transactionCbor', 0) as string;
+            const additionalUtxos = this.getNodeParameter('additionalUtxos', 0, '[]') as string;
+            url = '/utils/txs/evaluate/utxos';
+            method = 'POST';
+            requestBody = JSON.stringify({
+              cbor: transactionCbor,
+              additionalUtxoSet: JSON.parse(additionalUtxos)
+            });
+            break;
+          }
+          default:
+            throw new Error(`Unknown utilities operation: ${operation}`);
+        }
+        
+        const apiBase = credentials.network === 'mainnet'
+          ? 'https://cardano-mainnet.blockfrost.io/api/v0'
+          : credentials.network === 'preprod'
+            ? 'https://cardano-preprod.blockfrost.io/api/v0'
+            : 'https://cardano-preview.blockfrost.io/api/v0';
+            
+        const reqUrl = apiBase + url;
+        const headers: any = { 
+          project_id: credentials.projectId as string,
+        };
+        
+        if (method === 'POST') {
+          if (operation === 'evaluateTransactionUtxos') {
+            headers['Content-Type'] = 'application/json';
+          } else {
+            headers['Content-Type'] = 'application/cbor';
+          }
+        }
+        
+        let gotOptions: any = { method, headers, responseType: 'json' };
+        
+        if (requestBody) {
+          gotOptions.body = requestBody;
+        }
+        
+        const response = await got(reqUrl, gotOptions);
+        const body = response.body;
+        
+        if (Array.isArray(body)) {
+          responseData = body as IDataObject[];
+        } else if (typeof body === 'object' && body !== null) {
+          responseData = [body as IDataObject];
+        } else {
+          responseData = [{ result: body }];
+        }
+        
       } else {
         throw new Error(`Category ${category} not implemented yet`);
       }
