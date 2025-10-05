@@ -1,16 +1,16 @@
 ## Screenshots
 
-### Example 1
-![Screenshot 1](assets/001.jpg)
+### Blockfrost Credential Selection
+![Blockfrost Credential Selection](assets/blockfrost-credential-selection.jpg)
 
-### Example 2
-![Screenshot 2](assets/002.jpg)
+### Blockfrost Credential Configuration
+![Blockfrost Credential Configuration](assets/blockfrost-credential-saving.jpg)
 
-### Example 3
-![Screenshot 3](assets/003.jpg)
+### Blockfrost Node Selection in Workflow
+![Blockfrost Node Selection](assets/blockfrost-workflow-node-selection.jpg)
 
-### Example 4
-![Screenshot 4](assets/004.jpg)
+### Blockfrost Node Configuration Details
+![Blockfrost Node Details](assets/blockfrost-node-details.jpg)
 
 ## Demo Video
 
