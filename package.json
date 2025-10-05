@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-blockfrost",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Comprehensive n8n node for Blockfrost API - Complete Cardano blockchain integration with 75+ endpoints covering blocks, epochs, governance, pools, transactions, and more",
   "keywords": [
     "n8n-community-node-package",
