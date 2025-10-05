@@ -11,7 +11,7 @@ export class BlockfrostNode implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'Blockfrost',
     name: 'blockfrost',
-    icon: 'file:blockfrost.svg',
+    icon: 'file:Blockfrost/blockfrost.svg',
     group: ['transform'],
     version: 1,
     subtitle: '={{$parameter["category"]}} - {{$parameter["operation"]}}',

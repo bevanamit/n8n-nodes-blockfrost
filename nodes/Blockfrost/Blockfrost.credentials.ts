@@ -3,6 +3,7 @@ import { ICredentialType } from 'n8n-workflow';
 export class BlockfrostApi implements ICredentialType {
   name = 'blockfrostApi';
   displayName = 'Blockfrost API';
+  icon = 'file:Blockfrost/blockfrost-credential.svg' as const;
   properties = [
     {
       displayName: 'Project ID',

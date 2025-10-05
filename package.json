@@ -31,14 +31,16 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run copy-assets",
+    "copy-assets": "node -e \"const fs=require('fs'); const path=require('path'); fs.mkdirSync('dist/nodes/Blockfrost', {recursive:true}); fs.copyFileSync('src/nodes/Blockfrost/blockfrost.svg', 'dist/nodes/Blockfrost/blockfrost.svg'); fs.copyFileSync('src/nodes/Blockfrost/blockfrost-credential.svg', 'dist/nodes/Blockfrost/blockfrost-credential.svg');\"",
     "dev": "tsc --watch",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "lintfix": "eslint src/**/*.ts --fix"
   },
   "files": [
-    "dist"
+    "dist",
+    "nodes/Blockfrost/*.svg"
   ],
   "n8n": {
     "nodes": [
