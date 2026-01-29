@@ -1,3 +1,10 @@
+# ⚠️ DEPRECATED
+
+This package has been renamed.
+
+➡️ Use **@bevanamit/n8n-nodes-blockfrost** instead:
+https://www.npmjs.com/package/@bevanamit/n8n-nodes-blockfrost
+
 ## Screenshots
 
 ### Blockfrost Credential Selection
@@ -18,6 +25,17 @@
 # n8n-nodes-blockfrost
 
 This is a custom n8n node for interacting with the [Cardano blockchain](https://cardano.org) via the [Blockfrost API](https://blockfrost.io).
+
+**n8n-nodes-blockfrost (Deprecated)**
+
+This is a deprecated custom n8n node for interacting with the
+Cardano blockchain
+ via the
+Blockfrost API
+.
+
+**👉 The actively maintained version is:
+@bevanamit/n8n-nodes-blockfrost**
 
 ## Features
 
@@ -51,7 +69,17 @@ This is a custom n8n node for interacting with the [Cardano blockchain](https://
 - Evaluate transaction execution costs
 - Support for all Cardano networks (mainnet, preprod, preview)
 
-## Installation
+## ❌ Installation (Old Package – Not Recommended)
+
+⚠️ Do not install this package anymore
+
+npm install n8n-nodes-blockfrost
+
+
+Use instead:
+
+npm install @bevanamit/n8n-nodes-blockfrost
+
 
 ### Option 1: Community Node (via npm)
 
@@ -93,7 +121,7 @@ This ensures the package and its dependencies are installed correctly and n8n ca
 - [n8n](https://n8n.io/) (version 0.209.0 or newer)
 - A [Blockfrost](https://blockfrost.io) account and project API key
 
-## Credentials
+## Credentials (Same for New Package)
 
 To use this node, you need to set up Blockfrost API credentials:
 
@@ -125,15 +153,17 @@ Monitor ownership changes of specific NFTs on the Cardano blockchain.
 
 Pull transaction data for analysis or reporting purposes.
 
-## Development
+## Development Notice
 
-If you want to contribute to this node:
+Development has moved permanently to:
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Build the code: `npm run build`
-4. Link to your local n8n: `npm link`
-5. In your n8n installation directory: `npm link n8n-nodes-blockfrost`
+👉 https://github.com/bevanamit/n8n-nodes-blockfrost
+
+This repository is kept only for:
+
+- Backward compatibility
+- Existing installs
+- Historical reference
 
 ## Blockfrost Account Setup
 
@@ -178,5 +208,6 @@ This is free software, and you are welcome to redistribute it under certain cond
 I am not Catalyst funded. Any support you provide is greatly appreciated!
 
 **Cardano (ADA) donation address:**
+
 
 `addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp`
