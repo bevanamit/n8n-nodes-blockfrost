@@ -76,9 +76,9 @@ Blockfrost API
 npm install n8n-nodes-blockfrost
 
 
-Use instead:
+**Use instead:
 
-npm install @bevanamit/n8n-nodes-blockfrost
+npm install @bevanamit/n8n-nodes-blockfrost**
 
 
 ### Option 1: Community Node (via npm)
@@ -98,7 +98,7 @@ npm install @bevanamit/n8n-nodes-blockfrost
 
 ### Option 3: Fail-Safe Installation (if npm install does not work as expected)
 
-If running `npm install n8n-nodes-blockfrost` in your `~/.n8n/custom/` directory does not install the package correctly, try the following steps:
+If running `npm install @bevanamit/n8n-nodes-blockfrost` in your `~/.n8n/custom/` directory does not install the package correctly, try the following steps:
 
 1. Open a terminal and navigate to your n8n custom directory:
    ```
@@ -110,7 +110,8 @@ If running `npm install n8n-nodes-blockfrost` in your `~/.n8n/custom/` directory
    ```
 3. Install the package:
    ```
-   npm install n8n-nodes-blockfrost
+   npm install @bevanamit/n8n-nodes-blockfrost
+   
    ```
 4. Restart n8n completely (stop and start the process).
 
@@ -211,3 +212,4 @@ I am not Catalyst funded. Any support you provide is greatly appreciated!
 
 
 `addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp`
+
