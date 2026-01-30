@@ -1,7 +1,3 @@
-# ⚠️ DEPRECATED
-
-This package has been renamed.
-
 ➡️ Use **@bevanamit/n8n-nodes-blockfrost** instead:
 https://www.npmjs.com/package/@bevanamit/n8n-nodes-blockfrost
 
@@ -212,4 +208,5 @@ I am not Catalyst funded. Any support you provide is greatly appreciated!
 
 
 `addr1qyxypmc96e3pska6ch2ucq4uv5d7uz6nhpgcne4ea4hgmemv40lpm3wmc3wqk5arjpgzrccm0m9k72puaqzwsgrj47asch66sp`
+
 
